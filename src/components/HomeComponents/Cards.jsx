@@ -11,20 +11,20 @@ const Cards = () => {
     <Box
       component="section"
       sx={{
-        position: "absolute",
-        top: "1890px",
         width: "95%",
-        height: "668px",
+        minHeight: "668px",
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
+        alignItems : "center",
+        mt:'88px'
       }}
     >
       <Box
         component="div"
         sx={{
-          width: 1,
-          height: "400px",
+          width: "100%",
+          minHeight: "400px",
           backgroundImage: `url(${card1})`,
           borderRadius: "20px",
           backgroundRepeat: "round",
@@ -37,8 +37,6 @@ const Cards = () => {
         <Box
           component="div"
           sx={{
-            width: "40%",
-            height: "50%",
             display: "flex",
             flexDirection: "column",
             justifyContent: "space-between",
@@ -49,13 +47,12 @@ const Cards = () => {
           <Box
             component="p"
             sx={{
-              width: "200px",
-              height: "50px",
               fontWeight: 400,
               fontSize: "30px",
               lineHeight: "20px",
               color: "#97451F",
               m: 0,
+              mb : "23px" ,
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
@@ -66,10 +63,9 @@ const Cards = () => {
           <Box
             component="h1"
             sx={{
-              width: "618px",
-              height: "136px",
+              maxWidth: "618px",
               fontWeight: 700,
-              fontSize: "52px",
+              fontSize: "50px",
               lineHeight: "68px",
               color: "#97451F",
               m: 0,
@@ -82,8 +78,8 @@ const Cards = () => {
       <Box
         component="div"
         sx={{
-          width: 1,
-          height: "228px",
+          width: "100%",
+          minHeight: "228px",
           display: "flex",
           flexDirection: "row",
           justifyContent: "space-between",
@@ -93,7 +89,7 @@ const Cards = () => {
           component="div"
           sx={{
             width: "49%",
-            height: 1,
+            minHeight: "100%",
             backgroundImage: `url(${card2})`,
             backgroundRepeat: "round",
             borderRadius: "20px",
@@ -106,7 +102,7 @@ const Cards = () => {
             component="div"
             sx={{
               width: "40%",
-              height: "90%",
+              minHeight: "90%",
               display: "flex",
               flexDirection: "column",
               justifyContent: "space-around",
@@ -123,7 +119,7 @@ const Cards = () => {
                 lineHeight: "52px",
                 color: "#A53F64",
                 textAlign: "end",
-                width: "70%",
+                width: "100%",
               }}
             >
               15% off and more!
@@ -146,7 +142,7 @@ const Cards = () => {
           component="div"
           sx={{
             width: "49%",
-            height: 1,
+            minHeight: "100%",
             backgroundImage: `url(${card3})`,
             backgroundRepeat: "round",
             borderRadius: "20px",
@@ -158,8 +154,8 @@ const Cards = () => {
           <Box
             component="div"
             sx={{
-              width: "40%",
-              height: "90%",
+              width: "50%",
+              minHeight: "90%",
               display: "flex",
               flexDirection: "column",
               justifyContent: "space-around",
