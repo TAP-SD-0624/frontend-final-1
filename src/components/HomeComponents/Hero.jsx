@@ -11,6 +11,7 @@ const Hero = () => {
         sx={{
           position: "absolute",
           width: "100%",
+          maxWidth : 1440,
           height: 400,
           top: 117,
           display: "flex",

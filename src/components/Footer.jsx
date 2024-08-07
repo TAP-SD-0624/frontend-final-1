@@ -10,7 +10,7 @@ import youTube from "../assets/icons/youtube.svg";
   
 const Footer = () => {
   return (
-    <Container sx={{ bgcolor: "#1B4B66" , height: 'auto' ,bottom: 0}} maxWidth="100%"> 
+    <Container sx={{ backgroundColor: "#1B4B66" , height: 'auto' ,bottom: 0, position: 'absolute',top: 2627 }} maxWidth="100%"> 
 
       <Stack
         direction={{ xs: "column", sm: "row" }}

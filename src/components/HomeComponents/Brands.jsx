@@ -26,8 +26,8 @@ const Brands = () => {
   return (
     <Container
       sx={{
-        paddingBottom: '67px',
-        paddingTop: '67px',
+        position:'absolute',
+        top : 1539 ,
         gap: 3,
         display: 'flex',
         flexDirection: 'column',
