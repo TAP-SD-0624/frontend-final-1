@@ -7,10 +7,10 @@ import instagram from "../assets/icons/instagram.svg";
 import twitter from "../assets/icons/twitter.svg";
 import youTube from "../assets/icons/youtube.svg";
 
-  
 const Footer = () => {
+
   return (
-    <Container sx={{ backgroundColor: "#1B4B66" , height: 'auto' ,bottom: 0, position: 'absolute',top: 2627 }} maxWidth="100%"> 
+    <Container sx={{  backgroundColor : "#1b4b66"}} width="100%" maxWidth="1440px"> 
 
       <Stack
         direction={{ xs: "column", sm: "row" }}

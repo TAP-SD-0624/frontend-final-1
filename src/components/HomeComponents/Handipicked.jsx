@@ -28,10 +28,8 @@ const HandiPicked = () => {
     <Box
       component="section"
       sx={{
-        position: "absolute",
-        top: "1048px",
-        width: 1,
-        height: "422px",
+        width: "100%",
+        minHeight: "422px",
         backgroundColor: "#1B4B66",
         display: "flex",
         justifyContent: "center",
@@ -42,7 +40,7 @@ const HandiPicked = () => {
         component="div"
         sx={{
           width: "100%",
-          height: "85%",
+          minHeight: "100%",
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
@@ -54,24 +52,24 @@ const HandiPicked = () => {
           component="h1"
           sx={{
             width: 1,
-            height: "10%",
             fontWeight: 600,
             fontSize: "34px",
             lineHeight: "44px",
             color: "#FFFFFF",
             m: 0,
+            mb : '16px'
           }}
         >
           Handpicked Collection
         </Box>
-        <Grid container spacing={5} sx={{ width: 1, height: "90%" }}>
+        <Grid container spacing={5} sx={{ width: 1, minHeight: "280px" }}>
           {data.map((product) => (
             <Grid item xs={3} sx={{ width: 1, height: 1 }}>
               <Box
                 component="div"
                 sx={{
                   width: 1,
-                  height: 1,
+                  minHeight: "280px",
                   backgroundImage: `url(${product.image})`,
                   borderRadius: "20px",
                   backgroundSize: "cover",

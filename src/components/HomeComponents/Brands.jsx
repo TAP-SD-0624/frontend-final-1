@@ -7,6 +7,7 @@ import DG from '../../assets/images/DG.png';
 import HM from '../../assets/images/HM.png';
 import Chanel from '../../assets/images/Chanel.png';
 import Biba from '../../assets/images/Biba.png';
+import Prada from '../../assets/images/Prada.png';
 
 const StyledImage = styled('img')(({ theme }) => ({
   aspectRatio: '1/1',
@@ -21,14 +22,17 @@ const BrandItem = ({ image }) => {
 };
 
 const Brands = () => {
-  const brandImages = [Zara, DG, HM, Chanel, Biba];
+  const brandImages = [Zara, DG, HM, Chanel,Prada, Biba];
 
   return (
     <Container
+    maxWidth="false"
+    disableGutters
       sx={{
-        position:'absolute',
-        top : 1539 ,
-        gap: 3,
+        mt:"70px",
+        width : '95%',
+        maxWidth : '1440px',
+        gap: 2,
         display: 'flex',
         flexDirection: 'column',
         [theme.breakpoints.down('sm')]: {
@@ -41,7 +45,7 @@ const Brands = () => {
       <Stack
         sx={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(168px, 1fr))',
+          gridTemplateColumns: 'repeat(6, minmax(175px, 1fr))',
           rowGap: '46px',
           columnGap: '46px',
           justifyContent: 'space-between',

@@ -57,7 +57,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 const Header = () => {
   return (
-    <AppBar position='static' sx={{ backgroundColor: 'white', color: 'black' ,height: '80px',padding: '6px 12px',margin: '0 auto'}} elevation={0}>
+    <AppBar position='static' sx={{ backgroundColor: 'white', color: 'black' ,height: '80px',padding: '6px 12px',margin: '0 auto', maxWidth: 1440, width:'100%' , marginBottom : "37px"}} elevation={0}>
       <Toolbar >
       <div style={{ marginRight: 24 }}>
           <img src={logo} alt="Logo" style={{ width: '108px', height: '22px' }} />
