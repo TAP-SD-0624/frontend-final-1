@@ -4,8 +4,8 @@ import { BrowserRouter as Router, Route, Routes  } from 'react-router-dom';
 import Home from './pages/Home/Home.jsx';
 
 function App() {
-
   return (
+
     <Router>
     <div className="App">
         <Layout>
@@ -15,7 +15,7 @@ function App() {
         </Layout>
     </div>
   </Router>
-  )
+);
 }
 
-export default App
+export default App;
