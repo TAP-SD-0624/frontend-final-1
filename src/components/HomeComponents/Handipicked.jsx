@@ -9,21 +9,22 @@ const HandiPicked = () => {
   const data = [
     {
       type: "Personal Care",
-      image: `${Personal}`,
+      image: Personal,
     },
     {
       type: "Handbags",
-      image: `${Hand}`,
+      image: Hand,
     },
     {
       type: "Wrist Watches",
-      image: `${Watch}`,
+      image: Watch,
     },
     {
       type: "Sun Glasses",
-      image: `${Glasses}`,
+      image: Glasses,
     },
   ];
+
   return (
     <Box
       component="section"
@@ -34,18 +35,20 @@ const HandiPicked = () => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
+        py: { xs: 3, sm: 5 }, // Adjust top/bottom padding for responsiveness
       }}
     >
       <Box
         component="div"
         sx={{
           width: "100%",
+          maxWidth: "1440px",
           minHeight: "100%",
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
           alignItems: "flex-start",
-          pl: "40px",
+          pl: { xs: "20px", sm: "40px" }, // Adjust padding-left for responsiveness
         }}
       >
         <Box
@@ -53,18 +56,28 @@ const HandiPicked = () => {
           sx={{
             width: 1,
             fontWeight: 600,
-            fontSize: "34px",
-            lineHeight: "44px",
+            fontSize: { xs: "24px", sm: "28px", md: "34px" }, // Responsive font size
+            lineHeight: { xs: "32px", sm: "36px", md: "44px" },
             color: "#FFFFFF",
-            m: 0,
-            mb : '16px'
+            mb: "16px",
           }}
         >
           Handpicked Collection
         </Box>
-        <Grid container spacing={5} sx={{ width: 1, minHeight: "280px" }}>
-          {data.map((product) => (
-            <Grid item xs={3} sx={{ width: 1, height: 1 }}>
+        <Grid container spacing={3} sx={{ width: 1, minHeight: "280px" }}>
+          {data.map((product, index) => (
+            <Grid
+              item
+              xs={12}
+              sm={6}
+              md={3}
+              key={index} // Added key prop for list rendering
+              sx={{
+                width: 1,
+                height: 1,
+                display: "flex", // Ensure grid items stretch to full height
+              }}
+            >
               <Box
                 component="div"
                 sx={{
@@ -91,8 +104,10 @@ const HandiPicked = () => {
                     pl: "20px",
                     pb: "25px",
                     background:
-                      "linear-gradient(to bottom,  rgba(196, 196, 196, 0), rgba(3, 24, 26, 0.46))",
+                      "linear-gradient(to bottom, rgba(196, 196, 196, 0), rgba(3, 24, 26, 0.46))",
                     borderRadius: "20px",
+                    fontSize: { xs: "18px", sm: "20px" }, // Responsive font size
+                    color: "#FFFFFF",
                   }}
                 >
                   {product.type}

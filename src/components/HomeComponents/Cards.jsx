@@ -4,7 +4,6 @@ import card1 from "../../assets/card1.png";
 import card2 from "../../assets/card2.png";
 import card3 from "../../assets/card3.png";
 import EastIcon from "@mui/icons-material/East";
-import { border, borderRadius } from "@mui/system";
 
 const Cards = () => {
   return (
@@ -16,8 +15,9 @@ const Cards = () => {
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
-        alignItems : "center",
-        mt:'88px'
+        alignItems: "center",
+        mt: "88px",
+        alignSelf: "center",
       }}
     >
       <Box
@@ -41,18 +41,18 @@ const Cards = () => {
             flexDirection: "column",
             justifyContent: "space-between",
             alignItems: "start",
-            pl: "40px",
+            pl: { xs: "10px", md: "40px" },
           }}
         >
           <Box
             component="p"
             sx={{
               fontWeight: 400,
-              fontSize: "30px",
+              fontSize: { xs: "20px", sm: "25px", md: "30px" },
               lineHeight: "20px",
               color: "#97451F",
               m: 0,
-              mb : "23px" ,
+              mb: "23px",
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
@@ -63,10 +63,10 @@ const Cards = () => {
           <Box
             component="h1"
             sx={{
-              maxWidth: "618px",
+              maxWidth: { xs: "50%", md: "618px" },
               fontWeight: 700,
-              fontSize: "50px",
-              lineHeight: "68px",
+              fontSize: { xs: "30px", sm: "40px", md: "50px" },
+              lineHeight: { xs: "40px", sm: "50px", md: "68px" },
               color: "#97451F",
               m: 0,
             }}
@@ -81,14 +81,14 @@ const Cards = () => {
           width: "100%",
           minHeight: "228px",
           display: "flex",
-          flexDirection: "row",
+          flexDirection: { xs: "column", sm: "row" },
           justifyContent: "space-between",
         }}
       >
         <Box
           component="div"
           sx={{
-            width: "49%",
+            width: { xs: "100%", sm: "49%" },
             minHeight: "100%",
             backgroundImage: `url(${card2})`,
             backgroundRepeat: "round",
@@ -115,7 +115,7 @@ const Cards = () => {
               sx={{
                 m: 0,
                 fontWeight: 700,
-                fontSize: "40px",
+                fontSize: { xs: "30px", sm: "35px", md: "40px" },
                 lineHeight: "52px",
                 color: "#A53F64",
                 textAlign: "end",
@@ -141,7 +141,7 @@ const Cards = () => {
         <Box
           component="div"
           sx={{
-            width: "49%",
+            width: { xs: "100%", sm: "49%" },
             minHeight: "100%",
             backgroundImage: `url(${card3})`,
             backgroundRepeat: "round",
@@ -168,7 +168,7 @@ const Cards = () => {
               sx={{
                 m: 0,
                 fontWeight: 700,
-                fontSize: "40px",
+                fontSize: { xs: "30px", sm: "35px", md: "40px" },
                 lineHeight: "52px",
                 color: "#1B4B66",
                 textAlign: "end",

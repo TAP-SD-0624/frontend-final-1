@@ -1,21 +1,20 @@
-import React from 'react';
-import Layout from './layout/Layout.jsx';
-import { BrowserRouter as Router, Route, Routes  } from 'react-router-dom';
-import Home from './pages/Home/Home.jsx';
+import React from "react";
+import Layout from "./layout/Layout.jsx";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Home from "./pages/Home/Home.jsx";
 
 function App() {
   return (
-
     <Router>
-    <div className="App">
+      <div className="App" style={{ width: "100%" }}>
         <Layout>
-            <Routes>
-              <Route path="/" element={<Home />} />
-            </Routes>
+          <Routes>
+            <Route path="/" element={<Home />} />
+          </Routes>
         </Layout>
-    </div>
-  </Router>
-);
+      </div>
+    </Router>
+  );
 }
 
 export default App;

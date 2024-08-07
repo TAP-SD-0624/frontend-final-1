@@ -40,7 +40,6 @@ const NewArrivals = () => {
       component="section"
       sx={{
         width: "100%",
-
       }}
     >
       <Box
@@ -51,12 +50,17 @@ const NewArrivals = () => {
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
-          pl: "40px",
+          pl: { xs: "16px", sm: "24px", md: "40px" },
         }}
       >
         <Box
           component="h1"
-          sx={{ m: 0, fontWeight: 600, fontSize: "34px", lineHeight: "44px" }}
+          sx={{
+            m: 0,
+            fontWeight: 600,
+            fontSize: { xs: "24px", md: "34px" },
+            lineHeight: { xs: "32px", md: "44px" },
+          }}
         >
           New Arrivals
         </Box>
@@ -64,9 +68,9 @@ const NewArrivals = () => {
           href="#"
           sx={{
             color: "#1B4B66",
-            fontSize: 14,
+            fontSize: { xs: 12, md: 14 },
             fontWeight: 600,
-            mb : "20px"
+            mb: "20px",
           }}
         >
           View all <KeyboardArrowRightIcon />
@@ -75,17 +79,17 @@ const NewArrivals = () => {
       <Grid
         container
         spacing={5}
-        sx={{ width: 1,  pl: "40px" }}
+        sx={{ width: 1, pl: { xs: "16px", sm: "24px", md: "40px" } }}
       >
-        {data.map((product) => (
-          <Grid item xs={3} sx={{ width: 1}}>
-            <Box component="section" sx={{ width: 1}}>
+        {data.map((product, index) => (
+          <Grid item xs={12} sm={6} md={3} key={index} sx={{ width: 1 }}>
+            <Box component="section" sx={{ width: 1 }}>
               <Box component="section" sx={{ width: 1 }}>
                 <img
                   src={product.image}
                   style={{
                     width: "100%",
-                    height : "285px",
+                    height: "285px",
                     objectFit: "cover",
                     borderRadius: "10px",
                   }}
@@ -98,6 +102,7 @@ const NewArrivals = () => {
                   display: "flex",
                   flexDirection: "row",
                   alignItems: "flex-start",
+                  justifyContent: "space-between",
                 }}
               >
                 <Box component="div" sx={{ width: "90%" }}>
@@ -105,11 +110,10 @@ const NewArrivals = () => {
                     component="p"
                     sx={{
                       fontWeight: "600",
-                      fontSize: "16px",
+                      fontSize: { xs: "14px", md: "16px" },
                       color: "#171520",
                       mt: "5px",
-                      mb:"2px"
-
+                      mb: "2px",
                     }}
                   >
                     {product.product}
@@ -118,9 +122,8 @@ const NewArrivals = () => {
                     component="p"
                     sx={{
                       fontWeight: "400",
-                      fontSize: "14px",
+                      fontSize: { xs: "12px", md: "14px" },
                       color: "#626262",
-                
                     }}
                   >
                     {product.type}
@@ -129,17 +132,15 @@ const NewArrivals = () => {
                     component="p"
                     sx={{
                       fontWeight: "600",
-                      fontSize: "16px",
+                      fontSize: { xs: "14px", md: "16px" },
                       color: "#171520",
-                      mt:0
-                      
-                    
+                      mt: 0,
                     }}
                   >
                     {product.price}
                   </Box>
                 </Box>
-                <Box component="p" sx={{m :0 , mt:"5px"}}>
+                <Box component="p" sx={{ m: 0, mt: "5px" }}>
                   <FavoriteBorderOutlinedIcon />
                 </Box>
               </Box>
