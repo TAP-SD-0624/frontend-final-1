@@ -5,7 +5,7 @@ import Hand from "../../assets/Hand/Hand.png";
 import Watch from "../../assets/Hand/watch.png";
 import Glasses from "../../assets/Hand/glasses.png";
 
-const HandiPicked = () => {
+const HandiPicked = ({ id }) => {
   const data = [
     {
       type: "Personal Care",
@@ -25,7 +25,7 @@ const HandiPicked = () => {
     },
   ];
   return (
-    <Box
+    <Box id={id}
       component="section"
       sx={{
         width: "100%",

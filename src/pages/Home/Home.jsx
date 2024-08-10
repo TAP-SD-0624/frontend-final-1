@@ -10,10 +10,10 @@ const Home= () => {
     return (
         <div className={styles.container}>
             <Hero/>
-            <NewArrivals/>  
-            <HandiPicked/>
-            <Brands/>
-            <Cards/>
+            <NewArrivals  />  
+            <HandiPicked id="handiPicked"/>
+            <Brands id="brands"/>
+            <Cards id="trendy"/>
         </div>
     );
 }
