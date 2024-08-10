@@ -7,11 +7,16 @@ import instagram from "../assets/icons/instagram.svg";
 import twitter from "../assets/icons/twitter.svg";
 import youTube from "../assets/icons/youtube.svg";
 
+const categories = ["Handbags", "Watches", "Skincare", "Jewelry", "Apparels"];
+const products = [
+  { name: "Featured", link: "/#handiPicked" },
+  { name: "Trendy", link: "/#trendy" },
+  { name: "Brands", link: "/#brands" },
+];
+
 const Footer = () => {
-
   return (
-    <Container sx={{  backgroundColor : "#1b4b66"}} width="100%" maxWidth="1440px"> 
-
+    <Container sx={{ backgroundColor: "#1b4b66" }} width="100%" maxWidth="1440px">
       <Stack
         direction={{ xs: "column", sm: "row" }}
         justifyContent="space-between"
@@ -20,25 +25,21 @@ const Footer = () => {
       >
         <Stack direction={{ xs: "column", sm: "row" }} spacing={{ xs: 3, md: 10 }}>
           <Stack spacing={1}>
-            <Typography sx={{ color: "white" }}>Shop by Category</Typography>
-            <Link sx={{ color: "#B6B6B6", textDecoration : 'none' }}>Handbags</Link>
-            <Link sx={{ color: "#B6B6B6",textDecoration : 'none' }}>Watches</Link>
-            <Link sx={{ color: "#B6B6B6" ,textDecoration : 'none'}}>Skincare</Link>
-            <Link sx={{ color: "#B6B6B6" ,textDecoration : 'none'}}>Jewelry</Link>
-            <Link sx={{ color: "#B6B6B6" ,textDecoration : 'none' }}>Apparels</Link>
+            <Typography sx={{ color: "white" }} component="div">Shop by Category</Typography>
+            {categories.map((category) => (
+              <Link key={category} sx={{ color: "#B6B6B6", textDecoration: 'none' }}>
+                {category}
+              </Link>
+            ))}
           </Stack>
 
           <Stack spacing={1}>
-            <Typography sx={{ color: "white" }}>Shop by Products</Typography>
-            <NavHashLink to="#featured" style={{ textDecoration: "none" }}>
-              <Typography color="#B6B6B6">Featured</Typography>
-            </NavHashLink>
-            <NavHashLink to="#trendy" style={{ textDecoration: "none" }}>
-              <Typography color="#B6B6B6">Trendy</Typography>
-            </NavHashLink>
-            <NavHashLink to="#brands" style={{ textDecoration: "none" }}>
-              <Typography color="#B6B6B6">Brands</Typography>
-            </NavHashLink>
+            <Typography sx={{ color: "white" }} component="div">Shop by Products</Typography>
+            {products.map((product) => (
+              <NavHashLink key={product.name} to={product.link} style={{ textDecoration: "none" }} smooth>
+                <Typography color="#B6B6B6">{product.name}</Typography>
+              </NavHashLink>
+            ))}
           </Stack>
         </Stack>
 
@@ -52,10 +53,10 @@ const Footer = () => {
             }}
           />
           <Stack direction="row" gap={2} justifyContent={{ xs: "flex-start", sm: "flex-end" }} flexWrap="wrap">
-            <img src={facebook} alt="facebook" />
-            <img src={instagram} alt="instagram" />
-            <img src={twitter} alt="twitter" />
-            <img src={youTube} alt="youtube" />
+            <img src={facebook} alt="Facebook" />
+            <img src={instagram} alt="Instagram" />
+            <img src={twitter} alt="Twitter" />
+            <img src={youTube} alt="YouTube" />
           </Stack>
 
           <Stack spacing={0.5}>
