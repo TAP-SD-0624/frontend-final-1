@@ -21,13 +21,16 @@ const BrandItem = ({ image }) => {
   return <StyledImage src={image} alt="brand item" />;
 };
 
-const Brands = () => {
-  const brandImages = [Zara, DG, HM, Chanel, Prada, Biba];
+
+const Brands = ({ id }) => {
+  const brandImages = [Zara, DG, HM, Chanel,Prada, Biba];
 
   return (
     <Container
-      maxWidth="false"
-      disableGutters
+    id={id}
+    maxWidth="false"
+    disableGutters
+
       sx={{
         mt: "70px",
         width: "95%",

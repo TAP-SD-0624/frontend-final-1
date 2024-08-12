@@ -9,6 +9,7 @@ const Hero = () => {
       <Box
         component="section"
         sx={{
+          mt : "37px",
           width: "100%",
           display: "flex",
           flexDirection: "column",

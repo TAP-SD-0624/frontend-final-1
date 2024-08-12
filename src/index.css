@@ -2,6 +2,7 @@ body {
   margin: 0;
   font-family: "Inter", sans-serif;
   overflow-x: hidden;
+  
 }
 
 #root {
@@ -16,4 +17,8 @@ body {
   justify-content: center;
   align-items: center;
   box-sizing: border-box;
+
+  scroll-behavior: smooth;
+  
+
 }

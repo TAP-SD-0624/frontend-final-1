@@ -5,9 +5,9 @@ import card2 from "../../assets/card2.png";
 import card3 from "../../assets/card3.png";
 import EastIcon from "@mui/icons-material/East";
 
-const Cards = () => {
+const Cards = ({ id }) => {
   return (
-    <Box
+    <Box id={id}
       component="section"
       sx={{
         width: "95%",
@@ -15,9 +15,11 @@ const Cards = () => {
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
-        alignItems: "center",
-        mt: "88px",
-        alignSelf: "center",
+
+        alignItems : "center",
+        mt:'88px',
+        alignSelf : 'center'
+
       }}
     >
       <Box
