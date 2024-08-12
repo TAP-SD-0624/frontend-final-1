@@ -1,11 +1,9 @@
 import Box from "@mui/material/Box";
-import Banner from "../components/Banner";
 import image1 from "../assets/category/hero.png";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import Stack from "@mui/material/Stack";
 import Link from "@mui/material/Link";
 import Typography from "@mui/material/Typography";
-import Grid from "@mui/material/Grid";
 import PaginatedList from "../components/CategoryComponents/Pagination";
 
 const Category = () => {
@@ -28,7 +26,8 @@ const Category = () => {
         alignItems: "center",
       }}
     >
-      <Banner
+      <Box
+        component="section"
         sx={{
           width: "95%",
           minHeight: 400,
@@ -43,7 +42,7 @@ const Category = () => {
           flexDirection: { xs: "column", md: "row" },
           mb: "40px",
         }}
-      ></Banner>
+      ></Box>
       <Stack spacing={2} sx={{ width: "55%", mb: "24px" }}>
         <Breadcrumbs
           separator="›"
