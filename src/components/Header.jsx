@@ -8,6 +8,7 @@ import UserIcon from "../assets/icons/user.svg";
 import BagIcon from "../assets/icons/bag.svg";
 import MenuIcon from '@mui/icons-material/Menu';
 
+
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
@@ -23,36 +24,35 @@ const Search = styled('div')(({ theme }) => ({
   },
 }));
 
-const SearchIconWrapper = styled('div')(({ theme }) => ({
+const SearchIconWrapper = styled("div")(({ theme }) => ({
   padding: theme.spacing(0, 0.8),
-  height: '100%',
-  position: 'absolute',
-  pointerEvents: 'none',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
+  height: "100%",
+  position: "absolute",
+  pointerEvents: "none",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
 }));
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: 'inherit',
-  '& .MuiInputBase-input': {
+  color: "inherit",
+  "& .MuiInputBase-input": {
     padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create('width'),
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      width: '30ch',
-      '&:focus': {
-        width: '30ch',
+    transition: theme.transitions.create("width"),
+    width: "100%",
+    [theme.breakpoints.up("sm")]: {
+      width: "30ch",
+      "&:focus": {
+        width: "30ch",
       },
     },
-    '&::placeholder': {
-        fontWeight: 500,
-        fontSize: '14px',
-        lineHeight: '18px',
-        color: '#626262',
-      },
+    "&::placeholder": {
+      fontWeight: 500,
+      fontSize: "14px",
+      lineHeight: "18px",
+      color: "#626262",
+    },
   },
 }));
 
@@ -65,6 +65,7 @@ const Header = () => {
   };
 
   return (
+
     <AppBar position='static' sx={{ backgroundColor: 'white', color: 'black' ,height: '80px',padding: '6px 12px', maxWidth: "1600px", width:'100%' }} elevation={0}>
       <Toolbar sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }} >
         <Box sx={{ display: 'flex', alignItems: 'center', marginRight: { xs: 0, sm: 24 } }}>
@@ -113,10 +114,11 @@ const Header = () => {
           <IconButton size="large" aria-label="shopping cart" color="inherit" >
               <img src={BagIcon} style={{ width: '24px' }} />
           </IconButton>
+
         </Box>
       </Toolbar>
     </AppBar>
   );
-}
+};
 
 export default Header;
