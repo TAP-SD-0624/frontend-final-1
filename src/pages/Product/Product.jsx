@@ -19,7 +19,7 @@ const Product = () => {
         <Grid item xs={12} md={6}>
           <ProductDetails />
           <Box my={2}>
-            <QuantitySelector />
+            <QuantitySelector showLabel={true}  />
           </Box>
           <ActionButtons/>
         </Grid>

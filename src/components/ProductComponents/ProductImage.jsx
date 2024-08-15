@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import { Box, Paper, IconButton } from '@mui/material';
 import { ChevronLeft, ChevronRight } from "@mui/icons-material";
 import thumb6 from '../../assets/newArriavls/duffle.png';
+import thumb7 from '../../assets/newArriavls/pink.png';
+import thumb8 from '../../assets/newArriavls/brown.png';
 import styles from "./ProductImage.module.scss";
 
 const ProductImage = () => {
   const [index, setIndex] = useState(0);
-  const thumbnails = [thumb6, thumb6, thumb6, thumb6];
+  const thumbnails = [thumb6, thumb6, thumb8, thumb6, thumb7,thumb8,thumb6];
   const visibleThumbnails = thumbnails.slice(index, index + 4);
 
   return (
@@ -30,7 +32,7 @@ const ProductImage = () => {
         </IconButton>
         <Box className={styles.imagesContainer} sx={{ display: 'flex', justifyContent: 'center' }}>
           {visibleThumbnails.map((thumb, idx) => (
-            <img key={idx} src={thumb} width="55px" className={styles.image} />
+            <img key={idx} src={thumb} width="70px" height="70px" className={styles.image} />
           ))}
         </Box>
         <IconButton onClick={() => setIndex((prev) => Math.min(prev + 1, thumbnails.length - 4))} sx={{ p: 1 }}>
