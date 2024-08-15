@@ -9,6 +9,7 @@ import SignUp from './pages/SignUp/SignUp.jsx';
 import SignIn from './pages/SignIn/SignIn.jsx';
 import About from './pages/About/About.jsx';
 import Category from "./pages/Category.jsx";
+import Checkout from "./pages/Checkout/Checkout.jsx";
 
 function App() {
   return (
@@ -23,8 +24,8 @@ function App() {
               <Route path="/signup" element={<SignUp/>} />
               <Route path="/signin" element={<SignIn/>} />
               <Route path="/category" element={<Category />} />
+                <Route path="/checkout" element={<Checkout />} />
             </Routes>
-
         </Layout>
       </div>
     </Router>
