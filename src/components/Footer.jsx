@@ -6,7 +6,7 @@ import facebook from "../assets/icons/facebook.svg";
 import instagram from "../assets/icons/instagram.svg";
 import twitter from "../assets/icons/twitter.svg";
 import youTube from "../assets/icons/youtube.svg";
-
+import { Link as RouterLink } from 'react-router-dom';
 const categories = ["Handbags", "Watches", "Skincare", "Jewelry", "Apparels"];
 const products = [
   { name: "Featured", link: "/#handiPicked" },
@@ -41,7 +41,15 @@ const Footer = () => {
               </NavHashLink>
             ))}
           </Stack>
+          <Stack spacing={1} sx={{ flexShrink: 0 }}>
+              <Link component={RouterLink} to="/about" sx={{ color: "white", textDecoration: 'none' }}>
+                <Typography component="div">About Us</Typography>
+              </Link>
         </Stack>
+        </Stack>
+
+
+      
 
         <Stack spacing={2}>
           <Divider

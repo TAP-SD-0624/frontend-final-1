@@ -3,7 +3,7 @@ import { Box, Button, Stack, Typography, useTheme } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 
-const QuantitySelector = () => {
+const QuantitySelector = ({showLabel = true}) => {
   const [quantityCount, setQuantityCount] = useState(1);
   const theme = useTheme();
 
@@ -27,9 +27,10 @@ const QuantitySelector = () => {
         alignItems: 'center',
       }}
     >
+      {showLabel && (
       <Typography variant="h6" sx={{ fontWeight: 600, fontSize: { xs: '16px', md: '20px' }, mr: { xs: 0, sm: '16px' } }}>
         Quantity:
-      </Typography>
+      </Typography> )}
       <Stack
         direction="row"
         border={`1px solid ${theme.palette.primary.main}`}
