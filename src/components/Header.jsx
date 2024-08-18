@@ -114,9 +114,29 @@ const Header = () => {
           <IconButton size="large" aria-label="show favorite items" color="inherit" sx={{ marginLeft: { xs: 0, sm: 3 } }}>
             <img src={HeartIcon} style={{ width: '24px' }} />
           </IconButton>
-          <IconButton size="large" aria-label="user account" color="inherit">
+          <IconButton size="large" aria-label="user account" color="inherit" onClick={handleMenuOpen}>
             <img src={UserIcon} style={{ width: '24px' }} />
           </IconButton>
+          <Menu
+            anchorEl={anchorEl}
+            open={Boolean(anchorEl)}
+            onClose={handleMenuClose}
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'right',
+            }}
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+          >
+            <MenuItem component={RouterLink} to="/login" onClick={handleMenuClose}>
+              Sign In
+            </MenuItem>
+            <MenuItem component={RouterLink} to="/register" onClick={handleMenuClose}>
+              Sign Up
+            </MenuItem>
+          </Menu>
           <IconButton size="large" aria-label="shopping cart" color="inherit" onClick={handleDrawerToggle}>
             <img src={BagIcon} style={{ width: '24px' }} />
           </IconButton>
