@@ -137,7 +137,7 @@ export default function SignIn() {
                   id="password"
                   autoComplete="current-password"
                   error={!!errors.password}
-                  helperText={errors.password ? errors.email.password : ""}
+                  helperText={errors.password ? errors.password : ""}
                 />
               )}
             />
@@ -156,6 +156,11 @@ export default function SignIn() {
                 Server error. Please try again later.
               </Typography>
             )}
+            {errorMessage && (
+              <Typography variant="h6" color="error" sx={{ mt: 2 }}>
+                {errorMessage}
+              </Typography>
+            )}
 
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
@@ -166,9 +171,7 @@ export default function SignIn() {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
-              onClick={() => {
-                reset;
-              }}
+              onClick={() => {}}
             >
               Sign In
             </Button>
