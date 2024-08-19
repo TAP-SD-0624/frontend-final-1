@@ -56,6 +56,8 @@ export default function SignIn() {
       .post("https://backend-final-g1.onrender.com/api/auth/login", data)
       .then((response) => {
         setResponseStatus(response.status);
+        console.log(response.data);
+        localStorage.setItem("token", response.data.token);
         navigate("/");
       })
       .catch((error) => {
