@@ -130,10 +130,10 @@ const Header = () => {
               horizontal: 'right',
             }}
           >
-            <MenuItem component={RouterLink} to="/login" onClick={handleMenuClose}>
+            <MenuItem component={RouterLink} to="/signin" onClick={handleMenuClose}>
               Sign In
             </MenuItem>
-            <MenuItem component={RouterLink} to="/register" onClick={handleMenuClose}>
+            <MenuItem component={RouterLink} to="/signup" onClick={handleMenuClose}>
               Sign Up
             </MenuItem>
           </Menu>
