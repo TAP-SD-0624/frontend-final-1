@@ -1,14 +1,15 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { AppBar, Toolbar, InputBase, IconButton, Box, Button, Link, Menu, MenuItem, Divider } from '@mui/material';
 import { alpha, styled } from '@mui/material/styles';
 import SearchIcon from '@mui/icons-material/Search';
 import MenuIcon from '@mui/icons-material/Menu';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import logo from '../assets/logo.svg'; 
 import HeartIcon from "../assets/icons/heart.svg";
 import UserIcon from "../assets/icons/user.svg";
 import BagIcon from "../assets/icons/bag.svg";
 import CartDrawer from "./Drawer/CartDrawer.jsx";
+import { useAuth } from '../context/AuthContext'; // Import useAuth hook
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -51,8 +52,10 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 const Header = () => {
-  const [drawerOpen, setDrawerOpen] = React.useState(false);
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const { isAuthenticated, logout } = useAuth(); // Use AuthContext
+  const navigate = useNavigate();
 
   const handleDrawerToggle = () => {
     setDrawerOpen(!drawerOpen);
@@ -64,6 +67,12 @@ const Header = () => {
 
   const handleMenuClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleLogout = () => {
+    logout(); // Call logout from AuthContext
+    handleMenuClose();
+    navigate('/signin'); // Redirect to the sign-in page after logout
   };
 
   return (
@@ -130,12 +139,20 @@ const Header = () => {
               horizontal: 'right',
             }}
           >
-            <MenuItem component={RouterLink} to="/signin" onClick={handleMenuClose}>
-              Sign In
-            </MenuItem>
-            <MenuItem component={RouterLink} to="/signup" onClick={handleMenuClose}>
-              Sign Up
-            </MenuItem>
+            {isAuthenticated ? (
+              <MenuItem onClick={handleLogout}>
+                Log out
+              </MenuItem>
+            ) : (
+              <>
+                <MenuItem component={RouterLink} to="/signin" onClick={handleMenuClose}>
+                  Sign In
+                </MenuItem>
+                <MenuItem component={RouterLink} to="/signup" onClick={handleMenuClose}>
+                  Sign Up
+                </MenuItem>
+              </>
+            )}
           </Menu>
           <IconButton size="large" aria-label="shopping cart" color="inherit" onClick={handleDrawerToggle}>
             <img src={BagIcon} style={{ width: '24px' }} />
