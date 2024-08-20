@@ -1,5 +1,6 @@
-
 import React from 'react';
+import { Box } from '@mui/material';
+import { AuthProvider } from './context/AuthContext';
 import Layout from './layout/Layout.jsx';
 import { BrowserRouter as Router, Route, Routes  } from 'react-router-dom';
 import Home from './pages/Home/Home.jsx';
@@ -10,11 +11,13 @@ import SignIn from './pages/SignIn/SignIn.jsx';
 import About from './pages/About/About.jsx';
 import Category from "./pages/Category.jsx";
 import Checkout from "./pages/Checkout/Checkout.jsx";
+import Welcome from './pages/Welcome/Welcome.jsx';
 
 function App() {
   return (
     <Router>
-      <div className="App" style={{ width: "100%" }}>
+      <AuthProvider>
+      <Box className="App" style={{ width: "100%" }}>
         <Layout>
             <Routes>
               <Route path="/" element={<Home />} />
@@ -23,11 +26,14 @@ function App() {
               <Route path="/about" element={<About/>} />
               <Route path="/signup" element={<SignUp/>} />
               <Route path="/signin" element={<SignIn/>} />
+              <Route path="/welcome" element={<Welcome/>} />
               <Route path="/category" element={<Category />} />
                 <Route path="/checkout" element={<Checkout />} />
             </Routes>
         </Layout>
-      </div>
+      </Box>
+      </AuthProvider>
+
     </Router>
   );
 }

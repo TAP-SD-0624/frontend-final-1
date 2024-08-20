@@ -1,7 +1,23 @@
-import * as React from 'react';
-import {Avatar , Button , TextField , CssBaseline , Grid ,Link , Checkbox , Typography , Box , FormControlLabel , Container} from '@mui/material';
+import React, { useState } from 'react';
+import { useForm, Controller } from 'react-hook-form';
+import { useAuth } from '../../context/AuthContext';
+import axios from 'axios';
+import {
+  Avatar,
+  Button,
+  CssBaseline,
+  TextField,
+  Link,
+  Box,
+  Grid,
+  Typography,
+  Container,
+  FormControlLabel,
+  Checkbox
+} from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { useNavigate } from 'react-router-dom';
 
 function Copyright(props) {
   return (
@@ -16,18 +32,34 @@ function Copyright(props) {
   );
 }
 
-
 const defaultTheme = createTheme();
 
 export default function SignUp() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+  const { login } = useAuth();
+  const navigate = useNavigate();
+  const [serverError, setServerError] = useState('');
+  const {
+    handleSubmit,
+    control,
+    formState: { errors }
+  } = useForm();
+
+  const onSubmit = (data) => {
+    axios
+      .post('https://backend-final-g1.onrender.com/api/auth/register', data)
+      .then((response) => {
+        login(response.data.token, data.email); // Pass email along with token
+        navigate('/welcome');
+      })
+      .catch((error) => {
+        if (error.response && error.response.status === 400) {
+          setServerError('Invalid name or email');
+        } else {
+          console.error('Error:', error.message);
+        }
+      });
   };
+  
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -47,41 +79,83 @@ export default function SignUp() {
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+          <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
-                <TextField
-                  autoComplete="given-name"
+                <Controller
                   name="firstName"
-                  required
-                  fullWidth
-                  id="firstName"
-                  label="First Name"
-                  autoFocus
+                  control={control}
+                  defaultValue=""
+                  rules={{ required: 'First name is required' }}
+                  render={({ field }) => (
+                    <TextField
+                      {...field}
+                      margin="normal"
+                      required
+                      fullWidth
+                      id="firstName"
+                      label="First Name"
+                      name="firstName"
+                      autoComplete="given-name"
+                      autoFocus
+                      error={!!errors.firstName}
+                      helperText={errors.firstName ? errors.firstName.message : ''}
+                    />
+                  )}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  fullWidth
-                  id="lastName"
-                  label="Last Name"
+                <Controller
                   name="lastName"
-                  autoComplete="family-name"
+                  control={control}
+                  defaultValue=""
+                  rules={{ required: 'Last name is required' }}
+                  render={({ field }) => (
+                    <TextField
+                      {...field}
+                      margin="normal"
+                      required
+                      fullWidth
+                      id="lastName"
+                      label="Last Name"
+                      name="lastName"
+                      autoComplete="family-name"
+                      error={!!errors.lastName}
+                      helperText={errors.lastName ? errors.lastName.message : ''}
+                    />
+                  )}
                 />
               </Grid>
-              <Grid item xs={12}>
+            </Grid>
+            <Controller
+              name="email"
+              control={control}
+              defaultValue=""
+              rules={{ required: 'Email is required' }}
+              render={({ field }) => (
                 <TextField
+                  {...field}
+                  margin="normal"
                   required
                   fullWidth
                   id="email"
                   label="Email Address"
                   name="email"
                   autoComplete="email"
+                  error={!!errors.email}
+                  helperText={errors.email ? errors.email.message : ''}
                 />
-              </Grid>
-              <Grid item xs={12}>
+              )}
+            />
+            <Controller
+              name="password"
+              control={control}
+              defaultValue=""
+              rules={{ required: 'Password is required' }}
+              render={({ field }) => (
                 <TextField
+                  {...field}
+                  margin="normal"
                   required
                   fullWidth
                   name="password"
@@ -89,15 +163,20 @@ export default function SignUp() {
                   type="password"
                   id="password"
                   autoComplete="new-password"
+                  error={!!errors.password}
+                  helperText={errors.password ? errors.password.message : ''}
                 />
-              </Grid>
-              <Grid item xs={12}>
-                <FormControlLabel
-                  control={<Checkbox value="allowExtraEmails" color="primary" />}
-                  label="I want to receive inspiration, marketing promotions and updates via email."
-                />
-              </Grid>
-            </Grid>
+              )}
+            />
+            <FormControlLabel
+              control={<Checkbox value="allowExtraEmails" color="primary" />}
+              label="I want to receive inspiration, marketing promotions, and updates via email."
+            />
+            {serverError && (
+              <Typography color="error" align="center" sx={{ mt: 2 }}>
+                {serverError}
+              </Typography>
+            )}
             <Button
               type="submit"
               fullWidth
@@ -115,7 +194,7 @@ export default function SignUp() {
             </Grid>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 5 }} />
+        <Copyright sx={{ mt: 5, mb: 3 }} />
       </Container>
     </ThemeProvider>
   );
