@@ -2,7 +2,7 @@ import React from 'react';
 import { Box } from '@mui/material';
 import { AuthProvider } from './context/AuthContext';
 import Layout from './layout/Layout.jsx';
-import { BrowserRouter as Router, Route, Routes  } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Outlet  } from 'react-router-dom';
 import Home from './pages/Home/Home.jsx';
 import Product from './pages/Product/Product.jsx';
 import MyCart from './pages/MyCart/MyCart.jsx';
@@ -12,6 +12,8 @@ import About from './pages/About/About.jsx';
 import Category from "./pages/Category.jsx";
 import Checkout from "./pages/Checkout/Checkout.jsx";
 import Welcome from './pages/Welcome/Welcome.jsx';
+import { userLoader } from './routes/userLoader.jsx';
+import ProtectedRoute from './routes/ProtectedRoute.jsx';
 
 function App() {
   return (
@@ -28,7 +30,9 @@ function App() {
               <Route path="/signin" element={<SignIn/>} />
               <Route path="/welcome" element={<Welcome/>} />
               <Route path="/category" element={<Category />} />
-                <Route path="/checkout" element={<Checkout />} />
+              <Route loader={userLoader} element={<ProtectedRoute/>}>
+                <Route path="/checkout" element={<Checkout />} /> 
+              </Route>
             </Routes>
         </Layout>
       </Box>
