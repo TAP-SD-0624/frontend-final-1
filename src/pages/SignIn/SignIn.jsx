@@ -42,7 +42,7 @@ export default function SignIn() {
 
   const onSubmit = (data) => {
     axios
-      .post('https://backend-final-g1.onrender.com/api/auth/login', data)
+      .post('https://backend-final-g1-955g.onrender.com/api/auth/login', data)
       .then((response) => {
         login(response.data.token, data.email); // Pass email along with token
         navigate('/welcome'); // Use navigate instead of window.location.href

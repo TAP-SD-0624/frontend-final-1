@@ -14,6 +14,7 @@ import Checkout from "./pages/Checkout/Checkout.jsx";
 import Welcome from './pages/Welcome/Welcome.jsx';
 import { userLoader } from './routes/userLoader.jsx';
 import ProtectedRoute from './routes/ProtectedRoute.jsx';
+import BrandProducts from './pages/BrandProducts/BrandProducts.jsx';
 
 function App() {
   return (
@@ -29,7 +30,8 @@ function App() {
               <Route path="/signup" element={<SignUp/>} />
               <Route path="/signin" element={<SignIn/>} />
               <Route path="/welcome" element={<Welcome/>} />
-              <Route path="/category" element={<Category />} />
+              <Route path="/:category" element={<Category />} />
+              <Route path="/brand/:brandId" element={<BrandProducts />} />
               <Route loader={userLoader} element={<ProtectedRoute/>}>
                 <Route path="/checkout" element={<Checkout />} /> 
               </Route>

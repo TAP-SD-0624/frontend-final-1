@@ -37,7 +37,8 @@ const defaultTheme = createTheme();
 export default function SignUp() {
   const { login } = useAuth();
   const navigate = useNavigate();
-  const [serverError, setServerError] = useState('');
+  const [serverErrors, setServerErrors] = useState({});
+
   const {
     handleSubmit,
     control,
@@ -46,16 +47,22 @@ export default function SignUp() {
 
   const onSubmit = (data) => {
     axios
-      .post('https://backend-final-g1.onrender.com/api/auth/register', data)
+      .post('https://backend-final-g1-955g.onrender.com/api/auth/register', data)
       .then((response) => {
         login(response.data.token, data.email); // Pass email along with token
         navigate('/welcome');
       })
+      
       .catch((error) => {
-        if (error.response && error.response.status === 400) {
-          setServerError('Invalid name or email');
+        if (error.response && error.response.data) {
+          const errors = {};
+          error.response.data.errors.forEach((err) => {
+            errors[err.path] = err.msg;
+          });
+          setServerErrors(errors);
+          
         } else {
-          console.error('Error:', error.message);
+          setServerErrors('An unexpected error occurred. Please try again later.');
         }
       });
   };
@@ -98,8 +105,8 @@ export default function SignUp() {
                       name="firstName"
                       autoComplete="given-name"
                       autoFocus
-                      error={!!errors.firstName}
-                      helperText={errors.firstName ? errors.firstName.message : ''}
+                      error={!!errors.firstName || !!serverErrors.firstName}
+                      helperText={errors.firstName?.message || serverErrors.firstName || ''}
                     />
                   )}
                 />
@@ -120,8 +127,8 @@ export default function SignUp() {
                       label="Last Name"
                       name="lastName"
                       autoComplete="family-name"
-                      error={!!errors.lastName}
-                      helperText={errors.lastName ? errors.lastName.message : ''}
+                      error={!!errors.lastName || !!serverErrors.lastName}
+                      helperText={errors.lastName?.message || serverErrors.lastName || ''}
                     />
                   )}
                 />
@@ -142,8 +149,8 @@ export default function SignUp() {
                   label="Email Address"
                   name="email"
                   autoComplete="email"
-                  error={!!errors.email}
-                  helperText={errors.email ? errors.email.message : ''}
+                  error={!!errors.email || !!serverErrors.email}
+                  helperText={errors.email?.message || serverErrors.email || ''}
                 />
               )}
             />
@@ -163,20 +170,18 @@ export default function SignUp() {
                   type="password"
                   id="password"
                   autoComplete="new-password"
-                  error={!!errors.password}
-                  helperText={errors.password ? errors.password.message : ''}
+                  error={!!errors.password || !!serverErrors.password}
+                  helperText={errors.password?.message || serverErrors.password || ''}
                 />
               )}
             />
+
             <FormControlLabel
               control={<Checkbox value="allowExtraEmails" color="primary" />}
               label="I want to receive inspiration, marketing promotions, and updates via email."
             />
-            {serverError && (
-              <Typography color="error" align="center" sx={{ mt: 2 }}>
-                {serverError}
-              </Typography>
-            )}
+
+
             <Button
               type="submit"
               fullWidth

@@ -1,71 +1,96 @@
-import React from "react";
-import { Box, Stack, Typography, Container } from "@mui/material";
-import { styled } from "@mui/material/styles";
-import theme from "../../themes/theme";
-import Zara from "../../assets/images/Zara.png";
-import DG from "../../assets/images/DG.png";
-import HM from "../../assets/images/HM.png";
-import Chanel from "../../assets/images/Chanel.png";
-import Biba from "../../assets/images/Biba.png";
-import Prada from "../../assets/images/Prada.png";
-
-const StyledImage = styled("img")(({ theme }) => ({
-  aspectRatio: "1/1",
-  width: "100%",
-  objectFit: "none",
-  borderRadius: "16px",
-  backgroundColor: "#f4f4f4",
-}));
-
-const BrandItem = ({ image }) => {
-  return <StyledImage src={image} alt="brand item" />;
-};
+import React, { useState, useEffect, useRef } from 'react';
+import { Box, Typography, Container, IconButton, useMediaQuery, useTheme } from '@mui/material';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import BrandItem from './BrandItem';
+import axios from 'axios';
 
 const Brands = ({ id }) => {
-  const brandImages = [Zara, DG, HM, Chanel, Prada, Biba];
+  const [brands, setBrands] = useState([]);
+  const [startIndex, setStartIndex] = useState(0); // Index of the first brand to show
+  const containerRef = useRef(null);
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const isTablet = useMediaQuery(theme.breakpoints.between('sm', 'md'));
+
+  useEffect(() => {
+    axios.get('https://backend-final-g1-955g.onrender.com/api/brands/list')
+      .then(response => setBrands(response.data.brands))
+      .catch(error => console.error('Error fetching brands:', error));
+  }, []);
+
+  const handleScroll = (direction) => {
+    if (direction === 'right') {
+      setStartIndex(prev => Math.min(prev + 1, brands.length - 6)); // Show one more brand
+    } else if (direction === 'left') {
+      setStartIndex(prev => Math.max(prev - 1, 0)); // Hide one brand
+    }
+  };
+
+  // Determine number of visible brands and grid template columns
+  let brandsToShow = 6;
+  let columns = 6;
+  
+  if (isMobile) {
+    brandsToShow = 1; // Show 3 brands on mobile
+    columns = 1;
+  } else if (isTablet) {
+    brandsToShow = 4; // Show 4 brands on tablet
+    columns = 4;
+  }
 
   return (
     <Container
       id={id}
-      maxWidth="false"
+      maxWidth={false}
       disableGutters
       sx={{
-        mt: "70px",
-        width: "95%",
-        maxWidth: "1440px",
-        gap: 2,
-        display: "flex",
-        flexDirection: "column",
-        [theme.breakpoints.down("sm")]: {
-          gap: 1,
-        },
+        mt: '70px',
+        width: '95%',
+        maxWidth: '1440px',
+        display: 'flex',
+        flexDirection: 'column',
       }}
     >
-      <Typography sx={{ fontSize: 32, fontWeight: 600 }}>
+      <Typography sx={{ fontSize: { xs: 24, sm: 28, md: 32 }, fontWeight: 600 }}>
         Shop by Brands
       </Typography>
-      <Stack
-        sx={{
-          display: "grid",
-          gridTemplateColumns: "repeat(6, minmax(175px, 1fr))",
-          rowGap: "46px",
-          columnGap: "46px",
-          justifyContent: "space-between",
-          [theme.breakpoints.down("sm")]: {
-            rowGap: "24px",
-            columnGap: "16px",
-          },
-          [theme.breakpoints.down("400")]: {
-            gridTemplateColumns: "repeat(auto-fit, minmax(110px, 1fr))",
-          },
-        }}
-      >
-        {brandImages.map((image, index) => (
-          <Box key={index} sx={{ width: "100%" }}>
-            <BrandItem image={image} />
-          </Box>
-        ))}
-      </Stack>
+      <Box sx={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
+        {/* Left Chevron */}
+        {startIndex > 0 && (
+          <IconButton
+            onClick={() => handleScroll('left')}
+            sx={{ position: 'absolute', left: 0, zIndex: 1 }}
+          >
+            <ChevronLeftIcon />
+          </IconButton>
+        )}
+
+        <Box
+          ref={containerRef}
+          sx={{
+            display: 'grid',
+            gridTemplateColumns: `repeat(${columns}, minmax(175px, 1fr))`,
+            gap: 2,
+            overflow: 'hidden',
+            width: '100%', // Ensure the Box takes full width
+          }}
+        >
+          {brands.slice(startIndex, startIndex + brandsToShow).map(brand => (
+            <BrandItem key={brand.id} id={brand.id} image={brand.icon} name={brand.name} />
+          ))}
+        </Box>
+
+        {/* Right Chevron */}
+        {startIndex + brandsToShow < brands.length && (
+          <IconButton
+            onClick={() => handleScroll('right')}
+            sx={{ position: 'absolute', right: 0, zIndex: 1 }}
+          >
+            <ChevronRightIcon />
+          </IconButton>
+        )}
+      </Box>
     </Container>
   );
 };
