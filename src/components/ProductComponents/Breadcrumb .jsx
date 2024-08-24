@@ -1,16 +1,33 @@
-import React from 'react';
-import { Breadcrumbs, Link, Typography } from '@mui/material';
+import React from "react";
+import { Breadcrumbs, Typography, Button } from "@mui/material";
+import { Link as RouterLink } from "react-router-dom";
 
-const Breadcrumb = () => {
+const Breadcrumb = ({ product }) => {
   return (
-    <Breadcrumbs separator="›" aria-label="breadcrumb" sx={{ mb : "14px" ,mt : 0 }}>
-      <Link underline="hover"  href="/" sx={{color :"#1B4B66" , fontWeight : 600 , fontSize : "16px"}}>
+    <Breadcrumbs
+      separator="›"
+      aria-label="breadcrumb"
+      sx={{ mb: "14px", mt: 0 }}
+    >
+      <Button
+        component={RouterLink}
+        to="/"
+        sx={{ color: "#1B4B66", fontWeight: 600, fontSize: "16px" }}
+      >
         Home
-      </Link>
-      <Link underline="hover" href="/handbag" sx={{color :"#1B4B66" , fontWeight: "600" ,fontSize : "16px"}}>
-        Handbag
-      </Link>
-      <Typography color="#626262"sx={{fontSize : "16px" , fontWeight : 500}}>Label</Typography>
+      </Button>
+      <Button
+        component={RouterLink}
+        to="/category"
+        sx={{ color: "#1B4B66", fontWeight: "600", fontSize: "16px" }}
+      >
+        {product.categories && product.categories.length > 0
+          ? product.categories[0].name
+          : "not found"}
+      </Button>
+      <Typography color="#626262" sx={{ fontSize: "16px", fontWeight: 500 }}>
+        {product.name}
+      </Typography>
     </Breadcrumbs>
   );
 };
