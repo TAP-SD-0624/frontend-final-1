@@ -26,7 +26,8 @@ const HandiPicked = ({ id }) => {
   ];
 
   return (
-    <Box id={id}
+    <Box
+      id={id}
       component="section"
       sx={{
         width: "100%",
@@ -35,7 +36,6 @@ const HandiPicked = ({ id }) => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        py: { xs: 3, sm: 5 }, // Adjust top/bottom padding for responsiveness
       }}
     >
       <Box
@@ -43,12 +43,11 @@ const HandiPicked = ({ id }) => {
         sx={{
           width: "100%",
           maxWidth: "1440px",
-          minHeight: "100%",
+          minHeight: "422px",
           display: "flex",
           flexDirection: "column",
-          justifyContent: "space-between",
+          justifyContent: "space-around",
           alignItems: "flex-start",
-          pl: { xs: "20px", sm: "40px" }, // Adjust padding-left for responsiveness
         }}
       >
         <Box
@@ -59,7 +58,7 @@ const HandiPicked = ({ id }) => {
             fontSize: { xs: "24px", sm: "28px", md: "34px" }, // Responsive font size
             lineHeight: { xs: "32px", sm: "36px", md: "44px" },
             color: "#FFFFFF",
-            mb: "16px",
+            m: 0,
           }}
         >
           Handpicked Collection

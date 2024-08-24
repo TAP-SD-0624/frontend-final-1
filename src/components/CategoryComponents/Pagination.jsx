@@ -4,23 +4,30 @@ import Card from "../Card";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import pink from "../../assets/newArriavls/pink.png";
 import StarIcon from "@mui/icons-material/Star";
+import { getProductsByCate } from "../../lib/my-api";
+import { useQuery } from "@tanstack/react-query";
 
-function PaginatedList() {
-  const products = [
-    {
-      name: "Grande",
-      type: "Blossom pouch",
-      rating: 4,
-      ratingsNum: 43,
-      price: "$39.49",
-      oldPrice: "$78.66",
-      discountRate: "50% OFF",
-      image: pink,
-    },
-  ];
-  const items = Array.from({ length: 50 }).map(
-    (_, index) => `Item ${index + 1}`
-  );
+function PaginatedList({ category }) {
+  // const products = [
+  //   {
+  //     name: "Grande",
+  //     type: "Blossom pouch",
+  //     rating: 4,
+  //     ratingsNum: 43,
+  //     price: "$39.49",
+  //     oldPrice: "$78.66",
+  //     discountRate: "50% OFF",
+  //     image: pink,
+  //   },
+  // ];
+
+  const productsQuery = useQuery({
+    queryKey: ["productsCate", "list"],
+    queryFn: () => getProductsByCate(category),
+  });
+  const products = productsQuery.data?.products || [];
+
+  const items = products.map((_, index) => `Item ${index + 1}`);
   const [page, setPage] = useState(1);
   const itemsPerPage = 10;
 
@@ -49,7 +56,7 @@ function PaginatedList() {
             <Card sx={{ width: 1 }}>
               <Box component="section" sx={{ width: 1 }}>
                 <img
-                  src={products[0].image}
+                  src={product.images[0].publicURL}
                   style={{
                     width: "100%",
                     height: "285px",
