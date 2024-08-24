@@ -18,9 +18,9 @@ import SignIn from "./pages/SignIn/SignIn.jsx";
 import About from "./pages/About/About.jsx";
 import Category from "./pages/Category.jsx";
 import Checkout from "./pages/Checkout/Checkout.jsx";
-import Welcome from "./pages/Welcome/Welcome.jsx";
-import { userLoader } from "./routes/userLoader.jsx";
-import ProtectedRoute from "./routes/ProtectedRoute.jsx";
+import Welcome from './pages/Welcome/Welcome.jsx';
+import { userLoader } from './routes/userLoader.jsx';
+import ProtectedRoute from './routes/ProtectedRoute.jsx';
 
 const queryClient = new QueryClient();
 
