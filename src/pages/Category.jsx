@@ -1,19 +1,24 @@
-import Box from "@mui/material/Box";
+import { Box, Breadcrumbs, Stack, Typography, Button } from "@mui/material";
 import image1 from "../assets/category/hero.png";
-import Breadcrumbs from "@mui/material/Breadcrumbs";
-import Stack from "@mui/material/Stack";
-import Link from "@mui/material/Link";
-import Typography from "@mui/material/Typography";
+import { Link as RouterLink } from "react-router-dom";
 import PaginatedList from "../components/CategoryComponents/Pagination";
+import { useParams } from "react-router-dom";
 
 const Category = () => {
+  const { category } = useParams();
   const breadcrumbs = [
-    <Link underline="hover" key="1" color="inherit" href="/">
+    <Button
+      component={RouterLink}
+      underline="hover"
+      key="1"
+      color="inherit"
+      to="/"
+    >
       Home
-    </Link>,
-    <Link underline="hover" key="2" color="inherit">
-      Handbag
-    </Link>,
+    </Button>,
+    <Button component={RouterLink} underline="hover" key="2" color="inherit">
+      {category}
+    </Button>,
   ];
   return (
     <Box
@@ -63,9 +68,9 @@ const Category = () => {
           mb: "44px",
         }}
       >
-        Handbags
+        {category}
       </Typography>
-      <PaginatedList />
+      <PaginatedList category={category} />
     </Box>
   );
 };
