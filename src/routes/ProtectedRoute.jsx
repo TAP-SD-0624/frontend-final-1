@@ -1,15 +1,12 @@
-import React, { useState,useEffect } from 'react';
-import {Outlet, Route} from "react-router-dom";
-import { useNavigate } from "react-router-dom";
-import { getAccessToken } from '../lib/utils';
+import React from 'react';
+import { Outlet, Navigate } from "react-router-dom";
+import { useAuth } from '../context/AuthContext';
 
-const ProtectedRoute = ({children, ...props}) => {
-    const navigate =useNavigate();
-
-    
-  return (
-    <Outlet/>
-  )
+const ProtectedRoute = ({ children, ...props }) => {
+  const { isAuthenticated } = useAuth();
+  if (!isAuthenticated) {
+    return <Navigate to="/signin" />;
+  }
+  return children ? children : <Outlet />;
 }
-
-export default ProtectedRoute
+export default ProtectedRoute;

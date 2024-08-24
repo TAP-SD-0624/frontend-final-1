@@ -6,7 +6,6 @@ import {
   BrowserRouter as Router,
   Route,
   Routes,
-  Outlet,
 } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
@@ -19,8 +18,9 @@ import About from "./pages/About/About.jsx";
 import Category from "./pages/Category.jsx";
 import Checkout from "./pages/Checkout/Checkout.jsx";
 import Welcome from './pages/Welcome/Welcome.jsx';
-import { userLoader } from './routes/userLoader.jsx';
 import ProtectedRoute from './routes/ProtectedRoute.jsx';
+import BrandProducts from "./components/BrandProducts/BrandProducts.jsx";
+import UnauthenticatedRoute from './routes/UnauthenticatedRoute.jsx';
 
 const queryClient = new QueryClient();
 
@@ -35,13 +35,16 @@ function App() {
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/product/:productId" element={<Product />} />
-                <Route path="/m" element={<MyCart />} />
                 <Route path="/about" element={<About />} />
-                <Route path="/signup" element={<SignUp />} />
-                <Route path="/signin" element={<SignIn />} />
-                <Route path="/welcome" element={<Welcome />} />
+                <Route element={<UnauthenticatedRoute />}>
+                  <Route path="/signup" element={<SignUp />} />
+                  <Route path="/signin" element={<SignIn />} />
+                </Route>
                 <Route path="/:category" element={<Category />} />
-                <Route loader={userLoader} element={<ProtectedRoute />}>
+                <Route path="/brands/:brand" element={<BrandProducts />} />
+                <Route element={<ProtectedRoute />}>
+                  <Route path="/m" element={<MyCart />} />
+                  <Route path="/welcome" element={<Welcome />} />
                   <Route path="/checkout" element={<Checkout />} />
                 </Route>
               </Routes>

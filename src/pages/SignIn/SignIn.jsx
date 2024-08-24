@@ -48,8 +48,8 @@ export default function SignIn() {
         navigate('/welcome'); // Use navigate instead of window.location.href
       })
       .catch((error) => {
-        if (error.response && error.response.status === 400) {
-          setServerError('Invalid email or password');
+        if (error.response ) {
+          setServerError(error.response.data.error);
         } else {
           console.error('Error:', error.message);
           setServerError('An unexpected error occurred');
@@ -82,7 +82,8 @@ export default function SignIn() {
               name="email"
               control={control}
               defaultValue=""
-              rules={{ required: 'Email is required' }}
+              rules={{ required: 'Email is required',   pattern: {value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                                                                    message: 'Enter a valid email address'} }}
               render={({ field }) => (
                 <TextField
                   {...field}
