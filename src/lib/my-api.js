@@ -18,3 +18,11 @@ export const getProductsByCate = (category) => {
     `https://backend-final-g1-955g.onrender.com/api/products/list?page=1&pageSize=9&categories=${category}`
   );
 };
+
+export const getBrands = () => {
+  return axios
+    .get("https://backend-final-g1-955g.onrender.com/api/brands/list")
+    .then((response) => response.data);
+};
+
+// .catch((error) => console.error("Error fetching brands:", error));
