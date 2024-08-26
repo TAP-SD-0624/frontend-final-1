@@ -13,7 +13,7 @@ const StyledImage = styled("img")(({ theme }) => ({
 
 const BrandItem = ({ image, id, name }) => {
   return (
-    <Link to={`/${name}`}>
+    <Link to={`/brands/${name}`}>
       <StyledImage src={image} alt="brand item" />
     </Link>
   );
