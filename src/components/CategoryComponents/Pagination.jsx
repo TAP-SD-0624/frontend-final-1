@@ -6,28 +6,17 @@ import pink from "../../assets/newArriavls/pink.png";
 import StarIcon from "@mui/icons-material/Star";
 import { getProductsByCate } from "../../lib/my-api";
 import { useQuery } from "@tanstack/react-query";
+import { Link as RouterLink } from "react-router-dom";
 
 function PaginatedList({ category }) {
-  // const products = [
-  //   {
-  //     name: "Grande",
-  //     type: "Blossom pouch",
-  //     rating: 4,
-  //     ratingsNum: 43,
-  //     price: "$39.49",
-  //     oldPrice: "$78.66",
-  //     discountRate: "50% OFF",
-  //     image: pink,
-  //   },
-  // ];
-
   const productsQuery = useQuery({
     queryKey: ["productsCate", "list"],
     queryFn: () => getProductsByCate(category),
   });
-  const products = productsQuery.data?.products || [];
+  const products = productsQuery.data?.data.products || [];
 
-  const items = products.map((_, index) => `Item ${index + 1}`);
+  const items = products.map((product, index) => product);
+  console.log(items);
   const [page, setPage] = useState(1);
   const itemsPerPage = 10;
 
@@ -35,7 +24,7 @@ function PaginatedList({ category }) {
   const indexOfLastItem = page * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = items.slice(indexOfFirstItem, indexOfLastItem);
-
+  console.log(currentItems);
   const handleChange = (event, value) => {
     setPage(value);
   };
@@ -48,12 +37,17 @@ function PaginatedList({ category }) {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
+        mb: "69px",
       }}
     >
       <Grid container spacing={5} sx={{ width: "58%" }}>
         {currentItems.map((product, index) => (
           <Grid item xs={4} key={index} sx={{ width: 1 }}>
-            <Card sx={{ width: 1 }}>
+            <Card
+              component={RouterLink}
+              sx={{ width: 1, textDecoration: "none" }}
+              to={`/product/${product.id}`}
+            >
               <Box component="section" sx={{ width: 1 }}>
                 <img
                   src={product.images[0].publicURL}
@@ -86,7 +80,7 @@ function PaginatedList({ category }) {
                       mb: "2px",
                     }}
                   >
-                    {products[0].name}
+                    {product.name}
                   </Box>
                   <Box
                     component="p"
@@ -96,7 +90,7 @@ function PaginatedList({ category }) {
                       color: "#626262",
                     }}
                   >
-                    {products[0].type}
+                    {product.description}
                   </Box>
                   <Box
                     component="div"
@@ -144,7 +138,7 @@ function PaginatedList({ category }) {
                         mt: 0,
                       }}
                     >
-                      {products[0].price}
+                      ${product.price}
                     </Box>
                     <Box
                       component="p"
@@ -157,7 +151,9 @@ function PaginatedList({ category }) {
                         mt: 0,
                       }}
                     >
-                      {products[0].oldPrice}
+                      {1 -
+                        product.price /
+                          (product.discount["discountRate"] / 100)}
                     </Box>
                     <Box
                       component="p"
@@ -169,7 +165,7 @@ function PaginatedList({ category }) {
                         mt: 0,
                       }}
                     >
-                      {products[0].discountRate}
+                      {product.discount["discountRate"]}%
                     </Box>
                   </Box>
                 </Box>

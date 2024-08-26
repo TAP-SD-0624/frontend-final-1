@@ -2,22 +2,28 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import image1 from "../../assets/newArriavls/duffle.png";
+import { getCart } from "../../lib/my-api";
+import {
+  useQuery,
+  QueryClient,
+  QueryClientProvider,
+} from "@tanstack/react-query";
 
 const Summary = () => {
-  const orders = [
-    {
-      name: "Coach",
-      type: "Leather Coach Bag",
-      qty: 1,
-      image: `${image1}`,
-    },
-    {
-      name: "Coach",
-      type: "Leather Coach Bag",
-      qty: 1,
-      image: `${image1}`,
-    },
-  ];
+  const cartQuery = useQuery({
+    queryKey: ["cart", "list"],
+    queryFn: getCart,
+  });
+  const cart = cartQuery.data?.cart.products || [];
+  console.log(cart);
+
+  const subtotal = cart.reduce(
+    (total, item) => total + item.price * item.quantity,
+    0
+  );
+  const discount = 10;
+  const total = subtotal - discount;
+
   return (
     <Box component="div" sx={{ width: "35%", height: "100%" }}>
       <Box component="div" sx={{ minHeight: "60px", mb: "12px" }}>
@@ -39,7 +45,7 @@ const Summary = () => {
         component="div"
         sx={{ width: "100%", minHeight: "242px", mb: "24px" }}
       >
-        {orders.map((order) => {
+        {cart.map((product) => {
           return (
             <Box
               component="div"
@@ -53,7 +59,7 @@ const Summary = () => {
                   ml: "5px",
                   borderRadius: "5px",
                 }}
-                src={order.image}
+                src={product.images && product.images[0]?.publicURL}
               ></Box>
               <Box
                 component="div"
@@ -75,7 +81,7 @@ const Summary = () => {
                     color: "#171520",
                   }}
                 >
-                  {order.name}
+                  {product.name}
                 </Typography>
                 <Typography
                   component="h3"
@@ -86,7 +92,7 @@ const Summary = () => {
                     color: "#626262",
                   }}
                 >
-                  {order.type}
+                  {product.description}
                 </Typography>
                 <Typography
                   component="h3"
@@ -97,7 +103,7 @@ const Summary = () => {
                     color: "#626262",
                   }}
                 >
-                  Qty-{order.qty}
+                  Qty-{product.quantity}
                 </Typography>
               </Box>
             </Box>
@@ -150,7 +156,7 @@ const Summary = () => {
                 color: "#171520",
               }}
             >
-              $119.69
+              ${subtotal.toFixed(2)}
             </Typography>
           </Box>
           <Box
@@ -182,7 +188,7 @@ const Summary = () => {
                 color: "#171520",
               }}
             >
-              -$13.40
+              -${discount}
             </Typography>
           </Box>
           <Box
@@ -246,7 +252,7 @@ const Summary = () => {
                 color: "#171520",
               }}
             >
-              $106.29
+              ${total.toFixed(2)}
             </Typography>
           </Box>
         </Box>
