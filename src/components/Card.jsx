@@ -1,8 +1,8 @@
 import Box from "@mui/material/Box";
 
-const Card = ({ children, sx }) => {
+const Card = ({ children, sx, ...props }) => {
   return (
-    <Box component="div" sx={{ ...sx }}>
+    <Box sx={{ ...sx }} {...props}>
       {children}
     </Box>
   );

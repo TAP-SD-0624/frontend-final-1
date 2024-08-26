@@ -25,4 +25,13 @@ export const getBrands = () => {
     .then((response) => response.data);
 };
 
-// .catch((error) => console.error("Error fetching brands:", error));
+export const getCart = () => {
+  const token = localStorage.getItem("token");
+  return axios
+    .get("https://backend-final-g1-955g.onrender.com/api/carts/get", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((response) => response.data);
+};

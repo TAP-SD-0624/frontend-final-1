@@ -84,7 +84,7 @@ const NewArrivals = () => {
                 >
                   <Box component="section" sx={{ width: 1 }}>
                     <img
-                      src={product.images[0].publicURL}
+                      src={product.images[0] && product.images[0].publicURL}
                       style={{
                         width: "100%",
                         height: "285px",

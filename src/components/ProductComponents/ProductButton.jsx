@@ -1,14 +1,14 @@
-import React from 'react';
-import { Button } from '@mui/material';
-import { styled } from '@mui/material/styles';
+import React from "react";
+import { Button } from "@mui/material";
+import { styled } from "@mui/material/styles";
 
 const IconButton = styled(Button)(({ theme, customStyles }) => ({
-  minWidth: 'auto',
+  minWidth: "auto",
   padding: theme.spacing(1),
-  textTransform: 'none',
-  fontWeight : 600,
-  fontSize :"14px",
-  ...customStyles, 
+  textTransform: "none",
+  fontWeight: 600,
+  fontSize: "14px",
+  ...customStyles,
 }));
 
 const ProductButton = ({ iconSrc, alt, text, customStyles, ...props }) => {
@@ -20,10 +20,8 @@ const ProductButton = ({ iconSrc, alt, text, customStyles, ...props }) => {
         style={{
           width: 22,
           height: 22,
-          objectFit: 'contain',
+          objectFit: "contain",
           marginRight: 8,
-         
-          
         }}
       />
       {text}

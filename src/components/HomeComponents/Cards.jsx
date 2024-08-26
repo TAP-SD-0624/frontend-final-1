@@ -4,10 +4,12 @@ import card1 from "../../assets/card1.png";
 import card2 from "../../assets/card2.png";
 import card3 from "../../assets/card3.png";
 import EastIcon from "@mui/icons-material/East";
+import { Link as RouterLink } from "react-router-dom";
 
 const Cards = ({ id }) => {
   return (
-    <Box id={id}
+    <Box
+      id={id}
       component="section"
       sx={{
         width: "95%",
@@ -15,15 +17,15 @@ const Cards = ({ id }) => {
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
-
-        alignItems : "center",
-        mt:'88px',
-        alignSelf : 'center'
-
+        mb: "69px",
+        alignItems: "center",
+        mt: "88px",
+        alignSelf: "center",
       }}
     >
       <Box
-        component="div"
+        component={RouterLink}
+        to={`/Limited Edition`}
         sx={{
           width: "100%",
           minHeight: "400px",
@@ -34,6 +36,7 @@ const Cards = ({ id }) => {
           flexDirection: "column",
           justifyContent: "center",
           alignItems: "start",
+          textDecoration: "none",
         }}
       >
         <Box
@@ -88,7 +91,8 @@ const Cards = ({ id }) => {
         }}
       >
         <Box
-          component="div"
+          component={RouterLink}
+          to={`/Discounted`}
           sx={{
             width: { xs: "100%", sm: "49%" },
             minHeight: "100%",
@@ -98,6 +102,7 @@ const Cards = ({ id }) => {
             display: "flex",
             justifyContent: "flex-end",
             alignItems: "center",
+            textDecoration: "none",
           }}
         >
           <Box
@@ -135,13 +140,19 @@ const Cards = ({ id }) => {
               }}
             >
               <EastIcon
-                sx={{ p: 0, width: "50%", height: 1, color: "#A53F64" }}
+                sx={{
+                  p: 0,
+                  width: "50%",
+                  height: 1,
+                  color: "#A53F64",
+                }}
               />
             </Button>
           </Box>
         </Box>
         <Box
-          component="div"
+          component={RouterLink}
+          to={`/Popular`}
           sx={{
             width: { xs: "100%", sm: "49%" },
             minHeight: "100%",
@@ -151,6 +162,7 @@ const Cards = ({ id }) => {
             display: "flex",
             justifyContent: "flex-end",
             alignItems: "center",
+            textDecoration: "none",
           }}
         >
           <Box

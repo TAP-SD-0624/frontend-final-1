@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   useQuery,
   QueryClient,
@@ -13,9 +13,22 @@ import QuantitySelector from "../../components/ProductComponents/QuantitySelecto
 import ActionButtons from "../../components/ProductComponents/ActionButtons";
 import TabsSection from "../../components/ProductComponents/TabsSection";
 import { getProduct } from "../../lib/my-api";
+import axios from "axios";
+
 //import Tabs from './Tabs';
 
 const Product = () => {
+  const [quantityCount, setQuantityCount] = useState(1);
+
+  const handleIncrement = () => {
+    setQuantityCount(quantityCount + 1);
+  };
+
+  const handleDecrement = () => {
+    if (quantityCount > 1) {
+      setQuantityCount(quantityCount - 1);
+    }
+  };
   let { productId } = useParams();
 
   const productQuery = useQuery({
@@ -24,6 +37,20 @@ const Product = () => {
   });
   const product = productQuery.data?.product || [];
   console.log(product);
+
+  const clickHandler = () => {
+    const token = localStorage.getItem("token");
+    axios.post(
+      "https://backend-final-g1-955g.onrender.com/api/carts/product/set",
+      { quantity: quantityCount, productId: productId },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    console.log("done");
+  };
 
   return (
     <Container maxWidth="1440px" sx={{ m: 0, ml: "1%" }}>
@@ -35,9 +62,14 @@ const Product = () => {
         <Grid item xs={12} md={6}>
           <ProductDetails product={product} />
           <Box my={2}>
-            <QuantitySelector showLabel={true} />
+            <QuantitySelector
+              showLabel={true}
+              quantity={quantityCount}
+              increment={handleIncrement}
+              decrement={handleDecrement}
+            />
           </Box>
-          <ActionButtons product={product} />
+          <ActionButtons product={product} onClick={clickHandler} />
         </Grid>
       </Grid>
       <Box mt={4} sx={{ mb: "24px", width: "100%", maxWidth: "1440px" }}>
