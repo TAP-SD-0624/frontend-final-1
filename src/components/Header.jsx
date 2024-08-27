@@ -190,7 +190,10 @@ const Header = () => {
             }}
           >
             {isAuthenticated ? (
-              <MenuItem onClick={handleLogout}>Log out</MenuItem>
+              <>
+                <MenuItem component={RouterLink} to='/myCart' onClick={handleMenuClose}>My Cart</MenuItem>
+                <MenuItem onClick={handleLogout}>Log out</MenuItem>
+                </>
             ) : (
               <>
                 <MenuItem

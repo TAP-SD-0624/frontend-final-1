@@ -43,7 +43,7 @@ function App() {
                 <Route path="/:category" element={<Category />} />
                 <Route path="/brands/:brand" element={<BrandProducts />} />
                 <Route element={<ProtectedRoute />}>
-                  <Route path="/m" element={<MyCart />} />
+                  <Route path="/myCart" element={<MyCart />} />
                   <Route path="/welcome" element={<Welcome />} />
                   <Route path="/checkout" element={<Checkout />} />
                 </Route>
