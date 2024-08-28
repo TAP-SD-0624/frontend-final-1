@@ -30,7 +30,6 @@ export const getProductsByBrand = (brand) => {
   );
 };
 
-
 export const getCart = () => {
   const token = localStorage.getItem("token");
   return axios
@@ -42,3 +41,10 @@ export const getCart = () => {
     .then((response) => response.data);
 };
 
+export const getHandPicked = () => {
+  return axios
+    .get(
+      "https://backend-final-g1-955g.onrender.com/api/products/list?page=1&pageSize=9&minRating=4.5&maxPrice=100"
+    )
+    .then((res) => res.data);
+};
