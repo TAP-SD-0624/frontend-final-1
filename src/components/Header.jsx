@@ -20,7 +20,7 @@ import HeartIcon from "../assets/icons/heart.svg";
 import UserIcon from "../assets/icons/user.svg";
 import BagIcon from "../assets/icons/bag.svg";
 import CartDrawer from "./Drawer/CartDrawer.jsx";
-import { useAuth } from "../context/AuthContext"; // Import useAuth hook
+import { useAuth } from "../context/AuthContext";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -65,8 +65,16 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 const Header = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
-  const { isAuthenticated, logout } = useAuth(); // Use AuthContext
+  const { isAuthenticated, logout } = useAuth(); 
   const navigate = useNavigate();
+
+  const handleBagClick = () => {
+    if (!isAuthenticated) {
+      navigate('/signup');
+    } else {
+      setDrawerOpen(!drawerOpen);
+    }
+  };
 
   const handleDrawerToggle = () => {
     setDrawerOpen(!drawerOpen);
@@ -81,9 +89,9 @@ const Header = () => {
   };
 
   const handleLogout = () => {
-    logout(); // Call logout from AuthContext
+    logout(); 
     handleMenuClose();
-    navigate("/signin"); // Redirect to the sign-in page after logout
+    navigate("/signin"); 
   };
 
   return (
@@ -217,7 +225,7 @@ const Header = () => {
             size="large"
             aria-label="shopping cart"
             color="inherit"
-            onClick={handleDrawerToggle}
+            onClick={handleBagClick}
           >
             <img src={BagIcon} style={{ width: "24px" }} />
           </IconButton>
@@ -255,8 +263,9 @@ const Header = () => {
           )
         )}
       </Menu>
-
-      <CartDrawer open={drawerOpen} onClose={handleDrawerToggle} />
+      {isAuthenticated && (
+        <CartDrawer open={drawerOpen} onClose={handleBagClick} />
+      )}
     </AppBar>
   );
 };

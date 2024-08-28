@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
-import { useAuth } from '../../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import {
   Avatar,
@@ -17,7 +17,6 @@ import {
 } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { useNavigate } from 'react-router-dom';
 
 function Copyright(props) {
   return (
@@ -35,7 +34,6 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function SignUp() {
-  const { login } = useAuth();
   const navigate = useNavigate();
   const [serverErrors, setServerErrors] = useState({});
 
@@ -49,10 +47,8 @@ export default function SignUp() {
     axios
       .post('https://backend-final-g1-955g.onrender.com/api/auth/register', data)
       .then((response) => {
-        login(response.data.token, data.email); // Pass email along with token
-        navigate('/welcome');
+        navigate('/signin'); // Redirect to Sign In page after successful registration
       })
-      
       .catch((error) => {
         if (error.response && error.response.data) {
           const errors = {};
@@ -60,13 +56,11 @@ export default function SignUp() {
             errors[err.path] = err.msg;
           });
           setServerErrors(errors);
-          
         } else {
           setServerErrors('An unexpected error occurred. Please try again later.');
         }
       });
   };
-  
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -180,7 +174,6 @@ export default function SignUp() {
               control={<Checkbox value="allowExtraEmails" color="primary" />}
               label="I want to receive inspiration, marketing promotions, and updates via email."
             />
-
 
             <Button
               type="submit"

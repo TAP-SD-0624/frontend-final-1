@@ -21,6 +21,7 @@ import Welcome from './pages/Welcome/Welcome.jsx';
 import ProtectedRoute from './routes/ProtectedRoute.jsx';
 import BrandProducts from "./components/BrandProducts/BrandProducts.jsx";
 import UnauthenticatedRoute from './routes/UnauthenticatedRoute.jsx';
+import CartProvider from "./context/CartContext.jsx";
 
 const queryClient = new QueryClient();
 
@@ -29,27 +30,31 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools initialIsOpen />
       <Router>
+        
         <AuthProvider>
-          <Box className="App" style={{ width: "100%" }}>
-            <Layout>
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/product/:productId" element={<Product />} />
-                <Route path="/about" element={<About />} />
-                <Route element={<UnauthenticatedRoute />}>
-                  <Route path="/signup" element={<SignUp />} />
-                  <Route path="/signin" element={<SignIn />} />
-                </Route>
-                <Route path="/:category" element={<Category />} />
-                <Route path="/brands/:brand" element={<BrandProducts />} />
-                <Route element={<ProtectedRoute />}>
-                  <Route path="/myCart" element={<MyCart />} />
-                  <Route path="/welcome" element={<Welcome />} />
-                  <Route path="/checkout" element={<Checkout />} />
-                </Route>
-              </Routes>
-            </Layout>
-          </Box>
+          <CartProvider>
+            <Box className="App" style={{ width: "100%" }}>
+              <Layout>
+                <Routes>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/product/:productId" element={<Product />} />
+                  <Route path="/about" element={<About />} />
+                  <Route element={<UnauthenticatedRoute />}>
+                    <Route path="/signup" element={<SignUp />} />
+                    <Route path="/signin" element={<SignIn />} />
+                  </Route>
+                  <Route path="/:category" element={<Category />} />
+                  <Route path="/brands/:brand" element={<BrandProducts />} />
+                  <Route element={<ProtectedRoute />}>
+                    <Route path="/checkout" element={<Checkout />} />
+                    <Route path="/myCart" element={<MyCart />} />
+                    <Route path="/welcome" element={<Welcome />} />
+                    
+                  </Route>
+                </Routes>
+              </Layout>
+            </Box>
+            </CartProvider>
         </AuthProvider>
       </Router>
     </QueryClientProvider>

@@ -43,7 +43,7 @@ const MyCart = () => {
   const total = subtotal - discount;
 
   return (
-    <Box sx={{ width: "100%" }}>
+    <Box sx={{ width: "100%",mb : 5 }}>
       <CartHeader />
       <Grid container>
         <Grid item xs={12} md={8}>
