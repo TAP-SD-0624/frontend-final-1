@@ -2,11 +2,7 @@ import React from "react";
 import { Box } from "@mui/material";
 import { AuthProvider } from "./context/AuthContext";
 import Layout from "./layout/Layout.jsx";
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import Home from "./pages/Home/Home.jsx";
@@ -17,10 +13,10 @@ import SignIn from "./pages/SignIn/SignIn.jsx";
 import About from "./pages/About/About.jsx";
 import Category from "./pages/Category.jsx";
 import Checkout from "./pages/Checkout/Checkout.jsx";
-import Welcome from './pages/Welcome/Welcome.jsx';
-import ProtectedRoute from './routes/ProtectedRoute.jsx';
+import Welcome from "./pages/Welcome/Welcome.jsx";
+import ProtectedRoute from "./routes/ProtectedRoute.jsx";
 import BrandProducts from "./components/BrandProducts/BrandProducts.jsx";
-import UnauthenticatedRoute from './routes/UnauthenticatedRoute.jsx';
+import UnauthenticatedRoute from "./routes/UnauthenticatedRoute.jsx";
 
 const queryClient = new QueryClient();
 
