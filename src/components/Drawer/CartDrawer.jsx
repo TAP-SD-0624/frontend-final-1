@@ -1,41 +1,44 @@
-import {React,useState} from 'react';
-import { Drawer, Box, IconButton, Typography , TextField,Button} from '@mui/material';
+import React, {useState} from 'react';
+import { Drawer, Box, IconButton, Typography, TextField, Button } from '@mui/material';
+import { Link as RouterLink } from 'react-router-dom';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import product1 from "../../assets/newArriavls/duffle.png";
 import DrawerItem from './DrawerItem';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { getCart } from '../../lib/my-api';
 
 const CartDrawer = ({ open, onClose }) => {
   const [couponCode, setCouponCode] = useState('');
   const [discount, setDiscount] = useState(0);
-  const [items, setItems] = useState([
-    {
-      id: 1,
-      imageSrc: product1,
-      itemName: 'Coach',
-      itemDescription: 'Leather Coach Bag',
-      quantity: 1,
-      price: 99.99,
-    },
-    {
-      id: 2,
-      imageSrc: product1,
-      itemName: 'Coach',
-      itemDescription: 'Leather Coach Bag',
-      quantity: 2,
-      price: 199.99,
-    },
-  ]);
 
-  const handleQuantityChange = (id, newQuantity) => {
-    setItems((prevItems) =>
-      prevItems.map((item) =>
-        item.id === id ? { ...item, quantity: newQuantity } : item
-      )
-    );
+  const cartQuery = useQuery({
+    queryKey: ["cartItems", "list"],
+    queryFn: getCart,
+    onError: (error) => console.error("Failed to fetch cart items", error),
+  });
+  const cartItems = cartQuery.data?.cart?.products || [];;
+
+  const queryClient = useQueryClient();
+  const handleQuantityChange = async (itemId, newQuantity) => {
+    if (newQuantity < 1) return;
+    try {
+      const token = localStorage.getItem("token");
+      await axios.post(
+        "https://backend-final-g1-955g.onrender.com/api/carts/product/set",
+        { productId: itemId, quantity: newQuantity },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      queryClient.invalidateQueries(["cartItems", "list"]);
+    } catch (error) {
+      console.error("Failed to update quantity", error);
+    }
   };
+
   const handleBackClick = () => {
     onClose();
   };
+
   const handleApplyCoupon = () => {
     if (couponCode === 'DISCOUNT10') {
       setDiscount(10); // Example: 10% discount
@@ -43,14 +46,11 @@ const CartDrawer = ({ open, onClose }) => {
       setDiscount(0); // No discount
     }
   };
-  // Calculate totals
-  const calculateSubtotal = () => items.reduce((total, item) => total + item.price * item.quantity, 0);
-  const calculateTax = (subtotal) => subtotal * 0.1; // Example: 10% tax
-  const calculateTotal = (subtotal, tax) => subtotal + tax;
 
-  const subtotal = calculateSubtotal();
-  const tax = calculateTax(subtotal);
-  const total = calculateTotal(subtotal, tax);
+  const subtotal = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
+  const tax = subtotal * 0.1; // Example: 10% tax
+  const total = subtotal + tax - discount;
+
   return (
     <Drawer
       anchor="right"
@@ -68,16 +68,9 @@ const CartDrawer = ({ open, onClose }) => {
         },
       }}
     >
-      <Box
-        sx={{
-          padding :3,
-          display: 'flex',
-          flexDirection: 'column',
-        }}
-      >
-        {/* Back button with Arrow */}
+      <Box sx={{ padding: 3, display: 'flex', flexDirection: 'column' }}>
         <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-          <IconButton onClick={handleBackClick} sx={{ mr: 1 ,color: '#1B4B66',}}>
+          <IconButton onClick={handleBackClick} sx={{ mr: 1, color: '#1B4B66' }}>
             <ArrowBackIcon />
           </IconButton>
           <Typography variant="body1" sx={{ fontWeight: 600, color: '#1B4B66' }}>
@@ -85,46 +78,36 @@ const CartDrawer = ({ open, onClose }) => {
           </Typography>
         </Box>
 
-        
-        <Box
-          sx={{
-            flexGrow: 1,
-            display: 'flex',
-            flexDirection : "column",
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          {items.map((item) => (
+        <Box sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+          {cartItems.map((item) => (
             <DrawerItem
               key={item.id}
-              imageSrc={item.imageSrc}
-              itemName={item.itemName}
-              itemDescription={item.itemDescription}
+              imageSrc={item.images[0] && item.images[0].publicURL}
+              itemName={item.name}
+              itemDescription={item.description}
               quantity={item.quantity}
               price={item.price}
               onQuantityChange={(newQuantity) => handleQuantityChange(item.id, newQuantity)}
             />
           ))}
         </Box>
-            <Box sx={{ my: 2 }}>
-              
-              <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
-                <Typography variant="body1" sx ={{fontSize : "14px", fontWeight :  400}}>Subtotal:</Typography>
-                <Typography variant="body1" sx ={{fontSize : "14px", fontWeight :  400}}>${subtotal.toFixed(2)}</Typography>
-              </Box>
-              <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1}}>
-                <Typography variant="body1" sx ={{fontSize : "14px", fontWeight :  400}}>Tax:</Typography>
-                <Typography variant="body1" sx ={{fontSize : "14px", fontWeight :  400}}>${tax.toFixed(2)}</Typography>
-              </Box>
-              <Box sx={{ display: 'flex', justifyContent: 'space-between', fontWeight: 600 }}>
-                <Typography variant="body1" sx ={{fontSize : "14px", fontWeight :  400}}>Total:</Typography>
-                <Typography variant="body1" sx ={{fontSize : "14px", fontWeight :  400}}>${total.toFixed(2)}</Typography>
-              </Box>
+
+        <Box sx={{ my: 2 }}>
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
+            <Typography variant="body1" sx={{ fontSize: '14px', fontWeight: 400 }}>Subtotal:</Typography>
+            <Typography variant="body1" sx={{ fontSize: '14px', fontWeight: 400 }}>${subtotal.toFixed(2)}</Typography>
           </Box>
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
+            <Typography variant="body1" sx={{ fontSize: '14px', fontWeight: 400 }}>Tax:</Typography>
+            <Typography variant="body1" sx={{ fontSize: '14px', fontWeight: 400 }}>${tax.toFixed(2)}</Typography>
+          </Box>
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', fontWeight: 600 }}>
+            <Typography variant="body1" sx={{ fontSize: '14px', fontWeight: 400 }}>Total:</Typography>
+            <Typography variant="body1" sx={{ fontSize: '14px', fontWeight: 400 }}>${total.toFixed(2)}</Typography>
+          </Box>
+        </Box>
 
-
-          <Box sx={{display: 'flex', alignItems: 'center',backgroundColor : "#F1F1F1", width :"80%", px : "8px" , margin : "0 auto "}}>
+        <Box sx={{ display: 'flex', alignItems: 'center', backgroundColor: '#F1F1F1', width: '80%', px: '8px', margin: '0 auto' }}>
           <TextField
             placeholder="Apply Coupon Code"
             variant="standard"
@@ -139,8 +122,7 @@ const CartDrawer = ({ open, onClose }) => {
                 fontSize: '14px',
                 lineHeight: '18px',
                 color: '#626262',
-                '&::placeholder': {fontWeight: 500,fontSize : "16px"},
-                
+                '&::placeholder': { fontWeight: 500, fontSize: '16px' },
               },
             }}
           />
@@ -163,6 +145,8 @@ const CartDrawer = ({ open, onClose }) => {
         <Box sx={{ mt: 3 }}>
           <Button
             variant="contained"
+            component={RouterLink}
+            to="/checkout"
             fullWidth
             sx={{
               backgroundColor: '#1B4B66',
