@@ -44,12 +44,9 @@ const Product = () => {
       "https://backend-final-g1-955g.onrender.com/api/carts/product/set",
       { quantity: quantityCount, productId: productId },
       {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        headers: {Authorization: `Bearer ${token}`},
       }
     );
-    console.log("done");
   };
 
   return (

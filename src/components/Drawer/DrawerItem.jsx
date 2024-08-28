@@ -25,7 +25,12 @@ const DrawerItem = ({ imageSrc, itemName, itemDescription, quantity, price, onQu
 
           {/* Quantity Selector and Price */}
           <Box sx={{ display: 'flex'  }}>
-            <QuantitySelector showLabel={false} quantity={quantity} onQuantityChange={onQuantityChange} />
+          <QuantitySelector
+            showLabel={false}
+            quantity={quantity}
+            increment={() => onQuantityChange(quantity + 1)}
+            decrement={() => onQuantityChange(quantity - 1)}
+            />
             <Typography variant="body1" sx={{ fontWeight: 600, fontSize: '16px', marginLeft: 16 }}>
               ${price}
             </Typography>
