@@ -1,29 +1,40 @@
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
-import Personal from "../../assets/Hand/personal.jpeg";
-import Hand from "../../assets/Hand/Hand.png";
-import Watch from "../../assets/Hand/watch.png";
-import Glasses from "../../assets/Hand/glasses.png";
+import { useQuery } from "@tanstack/react-query";
+import { getHandPicked } from "../../lib/my-api";
+import { Link as RouterLink } from "react-router-dom";
 
 const HandiPicked = ({ id }) => {
-  const data = [
-    {
-      type: "Personal Care",
-      image: Personal,
-    },
-    {
-      type: "Handbags",
-      image: Hand,
-    },
-    {
-      type: "Wrist Watches",
-      image: Watch,
-    },
-    {
-      type: "Sun Glasses",
-      image: Glasses,
-    },
-  ];
+  const handPickedQuery = useQuery({
+    queryKey: ["handpicked", "list"],
+    queryFn: getHandPicked,
+  });
+
+  const handPicked = handPickedQuery.data?.products || [];
+
+  const categories = new Map();
+
+  handPicked.map((product) => {
+    if (!categories.has(product.categories && product.categories[0]?.name)) {
+      categories.set(product.categories && product.categories[0]?.name, [
+        {
+          name: product.name,
+          image: product.images[0].publicURL,
+        },
+      ]);
+    } else {
+      categories
+        .get(product.categories && product.categories[0]?.name)
+        .push({ name: product.name, image: product.images[0].publicURL });
+    }
+  });
+  console.log(categories);
+  const collection = [];
+
+  categories.forEach((value, key) => {
+    collection.push({ name: key, img: value[0].image });
+  });
+  console.log(collection);
 
   return (
     <Box
@@ -64,7 +75,7 @@ const HandiPicked = ({ id }) => {
           Handpicked Collection
         </Box>
         <Grid container spacing={3} sx={{ width: 1, minHeight: "280px" }}>
-          {data.map((product, index) => (
+          {collection.map((product, index) => (
             <Grid
               item
               xs={12}
@@ -78,17 +89,19 @@ const HandiPicked = ({ id }) => {
               }}
             >
               <Box
-                component="div"
+                component={RouterLink}
+                to={`/${product.name}`}
                 sx={{
                   width: 1,
                   minHeight: "280px",
-                  backgroundImage: `url(${product.image})`,
+                  backgroundImage: `url(${product.img})`,
                   borderRadius: "20px",
                   backgroundSize: "cover",
                   backgroundPosition: "center",
                   display: "flex",
                   justifyContent: "flex-end",
                   alignItems: "flex-end",
+                  textDecoration: "none",
                 }}
               >
                 <Box
@@ -109,7 +122,7 @@ const HandiPicked = ({ id }) => {
                     color: "#FFFFFF",
                   }}
                 >
-                  {product.type}
+                  {product.name}
                 </Box>
               </Box>
             </Grid>
