@@ -172,11 +172,12 @@ const Header = () => {
             size="large"
             aria-label="show favorite items"
             color="inherit"
-            sx={{ marginLeft: { xs: 0, sm: 3 } }}
+            sx={{ display: { xs: "none", sm: "block" } }}
           >
             <img src={HeartIcon} style={{ width: "24px" }} />
           </IconButton>
           <IconButton
+            sx={{ display: { xs: "none", sm: "block" } }}
             size="large"
             aria-label="user account"
             color="inherit"
@@ -238,6 +239,32 @@ const Header = () => {
         onClose={handleMenuClose}
         sx={{ display: { xs: "block", sm: "none" } }}
       >
+        
+            {isAuthenticated ? (
+              <>
+                <MenuItem component={RouterLink} to='/myCart' onClick={handleMenuClose}>My Cart</MenuItem>
+                <MenuItem onClick={handleLogout}>Log out</MenuItem>
+                </>
+            ) : (
+              <>
+                <MenuItem
+                  component={RouterLink}
+                  to="/signin"
+                  onClick={handleMenuClose}
+                >
+                  Sign In
+                </MenuItem>
+                <MenuItem
+                  component={RouterLink}
+                  to="/signup"
+                  onClick={handleMenuClose}
+                >
+                  Sign Up
+                </MenuItem>
+              </>
+            )}
+        
+        <Divider />
         <MenuItem>
           <Search>
             <SearchIconWrapper>
