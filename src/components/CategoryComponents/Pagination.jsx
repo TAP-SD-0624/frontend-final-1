@@ -9,6 +9,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Link as RouterLink } from "react-router-dom";
 
 function PaginatedList({ category }) {
+  console.log(category);
   const productsQuery = useQuery({
     queryKey: ["productsCate", "list"],
     queryFn: () => getProductsByCate(category),
@@ -50,7 +51,7 @@ function PaginatedList({ category }) {
             >
               <Box component="section" sx={{ width: 1 }}>
                 <img
-                  src={product.images[0].publicURL}
+                  src={product.images && product.images[0]?.publicURL}
                   style={{
                     width: "100%",
                     height: "285px",

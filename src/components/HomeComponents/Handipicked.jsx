@@ -19,13 +19,16 @@ const HandiPicked = ({ id }) => {
       categories.set(product.categories && product.categories[0]?.name, [
         {
           name: product.name,
-          image: product.images[0].publicURL,
+          image: product.images && product.images[0]?.publicURL,
         },
       ]);
     } else {
       categories
         .get(product.categories && product.categories[0]?.name)
-        .push({ name: product.name, image: product.images[0].publicURL });
+        .push({
+          name: product.name,
+          image: product.images && product.images[0]?.publicURL,
+        });
     }
   });
   console.log(categories);
