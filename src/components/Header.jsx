@@ -10,6 +10,7 @@ import {
   Menu,
   MenuItem,
   Divider,
+  useMediaQuery,
 } from "@mui/material";
 import { alpha, styled } from "@mui/material/styles";
 import SearchIcon from "@mui/icons-material/Search";
@@ -67,6 +68,7 @@ const Header = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const { isAuthenticated, logout } = useAuth();
   const navigate = useNavigate();
+  const isBelow1200px = useMediaQuery("(max-width:1200px)");
 
   const handleBagClick = () => {
     if (!isAuthenticated) {
@@ -127,7 +129,12 @@ const Header = () => {
           <Link component={RouterLink} to="/">
             <img src={logo} alt="Logo" style={{ height: "22px" }} />
           </Link>
-          <Box sx={{ display: { xs: "none", sm: "flex" }, marginLeft: 2 }}>
+          <Box
+            sx={{
+              display: { xs: "none", sm: "none", md: "none", lg: "flex" },
+              marginLeft: 2,
+            }}
+          >
             {[
               "Shoes",
               "Shirts",
@@ -245,69 +252,73 @@ const Header = () => {
           </IconButton>
         </Box>
       </Toolbar>
+      {isBelow1200px && (
+        <Menu
+          anchorEl={anchorEl}
+          open={Boolean(anchorEl)}
+          onClose={handleMenuClose}
+          sx={{
+            display: { xs: "block", sm: "block", md: "block", lg: "none" },
+          }}
+        >
+          {isAuthenticated ? (
+            <>
+              <MenuItem
+                component={RouterLink}
+                to="/myCart"
+                onClick={handleMenuClose}
+              >
+                My Cart
+              </MenuItem>
+              <MenuItem onClick={handleLogout}>Log out</MenuItem>
+            </>
+          ) : (
+            <>
+              <MenuItem
+                component={RouterLink}
+                to="/signin"
+                onClick={handleMenuClose}
+              >
+                Sign In
+              </MenuItem>
+              <MenuItem
+                component={RouterLink}
+                to="/signup"
+                onClick={handleMenuClose}
+              >
+                Sign Up
+              </MenuItem>
+            </>
+          )}
 
-      <Menu
-        anchorEl={anchorEl}
-        open={Boolean(anchorEl)}
-        onClose={handleMenuClose}
-        sx={{ display: { xs: "block", sm: "none" } }}
-      >
-        {isAuthenticated ? (
-          <>
-            <MenuItem
-              component={RouterLink}
-              to="/myCart"
-              onClick={handleMenuClose}
-            >
-              My Cart
-            </MenuItem>
-            <MenuItem onClick={handleLogout}>Log out</MenuItem>
-          </>
-        ) : (
-          <>
-            <MenuItem
-              component={RouterLink}
-              to="/signin"
-              onClick={handleMenuClose}
-            >
-              Sign In
-            </MenuItem>
-            <MenuItem
-              component={RouterLink}
-              to="/signup"
-              onClick={handleMenuClose}
-            >
-              Sign Up
-            </MenuItem>
-          </>
-        )}
+          <Divider />
+          <MenuItem>
+            <Search>
+              <SearchIconWrapper>
+                <SearchIcon fontSize="small" style={{ fontSize: 24 }} />
+              </SearchIconWrapper>
+              <StyledInputBase
+                placeholder="Search for products or brands…"
+                inputProps={{ "aria-label": "search" }}
+              />
+            </Search>
+          </MenuItem>
+          <Divider />
+          {["Handbags", "Watches", "Skincare", "Jewelry", "Apparels"].map(
+            (item) => (
+              <MenuItem
+                key={item}
+                component={RouterLink}
+                to={`/${item.toLowerCase()}`}
+                onClick={handleMenuClose}
+              >
+                {item}
+              </MenuItem>
+            )
+          )}
+        </Menu>
+      )}
 
-        <Divider />
-        <MenuItem>
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon fontSize="small" style={{ fontSize: 24 }} />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search for products or brands…"
-              inputProps={{ "aria-label": "search" }}
-            />
-          </Search>
-        </MenuItem>
-        <Divider />
-        {["Handbags", "Watches", "Skincare", "Jewelry", "Apparels"].map(
-          (item) => (
-            <MenuItem
-              key={item}
-              component={RouterLink}
-              to={`/${item.toLowerCase()}`}
-              onClick={handleMenuClose}
-            >
-              {item}
-            </MenuItem>
-          )
-        )}
-      </Menu>
       {isAuthenticated && (
         <CartDrawer open={drawerOpen} onClose={handleBagClick} />
       )}

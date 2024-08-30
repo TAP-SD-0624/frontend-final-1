@@ -9,7 +9,14 @@ import TextField from "@mui/material/TextField";
 
 const Information = () => {
   return (
-    <Box component="form" sx={{ width: "60%", height: "100%" }}>
+    <Box
+      component="form"
+      sx={{
+        width: { xs: "100%", md: "60%" }, // Full width on small screens, 60% on medium+
+        height: "100%",
+        padding: { xs: "0 16px", md: 0 }, // Padding for smaller screens
+      }}
+    >
       <Accordion
         defaultExpanded
         disableGutters
@@ -45,15 +52,20 @@ const Information = () => {
         <AccordionDetails sx={{ mt: "24px" }}>
           <Box
             component="div"
-            sx={{ display: "flex", flexDirection: "column", gap: "20px" }}
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "20px",
+            }}
           >
             <Box
               component="div"
               sx={{
                 width: "100%",
                 display: "flex",
+                flexDirection: { xs: "column", sm: "row" }, // Column on small screens, row on larger
                 justifyContent: "space-between",
-                gap: "31px",
+                gap: "16px", // Reduced gap for better spacing on small screens
               }}
             >
               <Box
@@ -61,7 +73,7 @@ const Information = () => {
                 sx={{
                   display: "flex",
                   flexDirection: "column",
-                  width: "50%",
+                  width: { xs: "100%", sm: "50%" }, // Full width on small screens, 50% on larger
                   gap: "8px",
                 }}
               >
@@ -80,6 +92,7 @@ const Information = () => {
                   id="filled-basic"
                   label="Enter First Name"
                   variant="filled"
+                  fullWidth
                 />
               </Box>
               <Box
@@ -87,7 +100,7 @@ const Information = () => {
                 sx={{
                   display: "flex",
                   flexDirection: "column",
-                  width: "50%",
+                  width: { xs: "100%", sm: "50%" }, // Full width on small screens, 50% on larger
                   gap: "8px",
                 }}
               >
@@ -106,6 +119,7 @@ const Information = () => {
                   id="filled-basic"
                   label="Enter Last Name"
                   variant="filled"
+                  fullWidth
                 />
               </Box>
             </Box>
@@ -114,8 +128,9 @@ const Information = () => {
               sx={{
                 width: "100%",
                 display: "flex",
+                flexDirection: { xs: "column", sm: "row" }, // Column on small screens, row on larger
                 justifyContent: "space-between",
-                gap: "31px",
+                gap: "16px", // Reduced gap for better spacing on small screens
               }}
             >
               <Box
@@ -123,7 +138,7 @@ const Information = () => {
                 sx={{
                   display: "flex",
                   flexDirection: "column",
-                  width: "50%",
+                  width: { xs: "100%", sm: "50%" }, // Full width on small screens, 50% on larger
                   gap: "8px",
                 }}
               >
@@ -138,14 +153,19 @@ const Information = () => {
                 >
                   Mobile Number
                 </Typography>
-                <TextField id="filled-basic" label="+11" variant="filled" />
+                <TextField
+                  id="filled-basic"
+                  label="+11"
+                  variant="filled"
+                  fullWidth
+                />
               </Box>
               <Box
                 component="div"
                 sx={{
                   display: "flex",
                   flexDirection: "column",
-                  width: "50%",
+                  width: { xs: "100%", sm: "50%" }, // Full width on small screens, 50% on larger
                   gap: "8px",
                 }}
               >
@@ -164,6 +184,7 @@ const Information = () => {
                   id="filled-basic"
                   label="Enter Email"
                   variant="filled"
+                  fullWidth
                 />
               </Box>
             </Box>
@@ -172,8 +193,9 @@ const Information = () => {
               sx={{
                 width: "100%",
                 display: "flex",
+                flexDirection: { xs: "column", sm: "row" }, // Column on small screens, row on larger
                 justifyContent: "space-between",
-                gap: "31px",
+                gap: "16px", // Reduced gap for better spacing on small screens
               }}
             >
               <Box
@@ -181,7 +203,7 @@ const Information = () => {
                 sx={{
                   display: "flex",
                   flexDirection: "column",
-                  width: "50%",
+                  width: { xs: "100%", sm: "50%" }, // Full width on small screens, 50% on larger
                   gap: "8px",
                 }}
               >
@@ -200,6 +222,7 @@ const Information = () => {
                   id="filled-basic"
                   label="Enter State"
                   variant="filled"
+                  fullWidth
                 />
               </Box>
               <Box
@@ -207,7 +230,7 @@ const Information = () => {
                 sx={{
                   display: "flex",
                   flexDirection: "column",
-                  width: "50%",
+                  width: { xs: "100%", sm: "50%" }, // Full width on small screens, 50% on larger
                   gap: "8px",
                 }}
               >
@@ -226,6 +249,7 @@ const Information = () => {
                   id="filled-basic"
                   label="Enter City"
                   variant="filled"
+                  fullWidth
                 />
               </Box>
             </Box>
@@ -246,8 +270,8 @@ const Information = () => {
       >
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel1-content"
-          id="panel1-header"
+          aria-controls="panel2-content"
+          id="panel2-header"
         >
           <Typography
             variant="h6"
