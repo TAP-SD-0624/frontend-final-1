@@ -34,16 +34,17 @@ function PaginatedList({ category }) {
     <Box
       component="div"
       sx={{
-        width: 1,
+        width: "100%",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
         mb: "69px",
+        px: { xs: 2, sm: 3 },
       }}
     >
-      <Grid container spacing={5} sx={{ width: "58%" }}>
+      <Grid container spacing={2} sx={{ width: { xs: "100%", md: "90%" } }}>
         {currentItems.map((product, index) => (
-          <Grid item xs={4} key={index} sx={{ width: 1 }}>
+          <Grid item xs={12} sm={6} md={4} lg={3} key={index} sx={{ width: 1 }}>
             <Card
               component={RouterLink}
               sx={{ width: 1, textDecoration: "none" }}
@@ -54,10 +55,12 @@ function PaginatedList({ category }) {
                   src={product.images && product.images[0]?.publicURL}
                   style={{
                     width: "100%",
-                    height: "285px",
+                    height: "auto",
+                    maxHeight: "285px",
                     objectFit: "cover",
                     borderRadius: "10px",
                   }}
+                  alt={product.name}
                 />
               </Box>
               <Box
@@ -65,19 +68,23 @@ function PaginatedList({ category }) {
                 sx={{
                   width: 1,
                   display: "flex",
-                  flexDirection: "row",
-                  alignItems: "flex-start",
-                  justifyContent: "space-between",
+                  flexDirection: "column",
+                  p: { xs: 1, md: 2 },
                 }}
               >
-                <Box component="div" sx={{ width: "90%" }}>
+                <Box
+                  component="div"
+                  sx={{
+                    width: "100%",
+                    mb: 1,
+                  }}
+                >
                   <Box
                     component="p"
                     sx={{
                       fontWeight: "600",
                       fontSize: { xs: "14px", md: "16px" },
                       color: "#171520",
-                      mt: "5px",
                       mb: "2px",
                     }}
                   >
@@ -93,93 +100,103 @@ function PaginatedList({ category }) {
                   >
                     {product.description}
                   </Box>
-                  <Box
-                    component="div"
-                    sx={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      alignItems: "center",
-                    }}
-                  >
-                    <Box component="p" sx={{ color: "#FF8C4B", m: 0 }}>
-                      <StarIcon />
-                      <StarIcon />
-                      <StarIcon />
-                      <StarIcon />
-                      <StarIcon />
-                    </Box>
-                    <Box
-                      component="p"
-                      sx={{
-                        m: 0,
-                        color: "#1B4B66",
-                        fontSize: "14px",
-                        fontWeight: 500,
-                        lineHeight: "18px",
-                      }}
-                    >
-                      {products[0].ratingsNum} Ratings
-                    </Box>
+                </Box>
+                <Box
+                  component="div"
+                  sx={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    mb: 1,
+                  }}
+                >
+                  <Box component="p" sx={{ color: "#FF8C4B", m: 0 }}>
+                    <StarIcon />
+                    <StarIcon />
+                    <StarIcon />
+                    <StarIcon />
+                    <StarIcon />
                   </Box>
                   <Box
-                    component="div"
+                    component="p"
                     sx={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      alignItems: "center",
-                      width: "85%",
+                      m: 0,
+                      color: "#1B4B66",
+                      fontSize: "14px",
+                      fontWeight: 500,
+                      lineHeight: "18px",
                     }}
                   >
-                    <Box
-                      component="p"
-                      sx={{
-                        fontWeight: "600",
-                        fontSize: { xs: "14px", md: "16px" },
-                        color: "#171520",
-                        mt: 0,
-                      }}
-                    >
-                      ${product.price}
-                    </Box>
-                    <Box
-                      component="p"
-                      sx={{
-                        fontWeight: "400",
-                        fontSize: { xs: "14px", md: "14px" },
-                        color: "#626262",
-                        lineHeight: "20px",
-                        textDecoration: "line-through",
-                        mt: 0,
-                      }}
-                    >
-                      {1 -
-                        product.price /
-                          (product.discount["discountRate"] / 100)}
-                    </Box>
-                    <Box
-                      component="p"
-                      sx={{
-                        fontWeight: "400",
-                        fontSize: { xs: "14px", md: "16px" },
-                        color: "#E21D1D",
-                        lineHeight: "20px",
-                        mt: 0,
-                      }}
-                    >
-                      {product.discount["discountRate"]}%
-                    </Box>
+                    {product.ratingsNum} Ratings
                   </Box>
                 </Box>
-
-                <Box component="p" sx={{ m: 0, mt: "5px" }}>
-                  <FavoriteBorderOutlinedIcon />
+                <Box
+                  component="div"
+                  sx={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    mb: 1,
+                  }}
+                >
+                  <Box
+                    component="p"
+                    sx={{
+                      fontWeight: "600",
+                      fontSize: { xs: "14px", md: "16px" },
+                      color: "#171520",
+                      m: 0,
+                    }}
+                  >
+                    ${product.price}
+                  </Box>
+                  <Box
+                    component="p"
+                    sx={{
+                      fontWeight: "400",
+                      fontSize: { xs: "14px", md: "14px" },
+                      color: "#626262",
+                      lineHeight: "20px",
+                      textDecoration: "line-through",
+                      m: 0,
+                    }}
+                  >
+                    $
+                    {(
+                      product.price /
+                      (1 - product.discount["discountRate"] / 100)
+                    ).toFixed(2)}
+                  </Box>
+                  <Box
+                    component="p"
+                    sx={{
+                      fontWeight: "400",
+                      fontSize: { xs: "14px", md: "16px" },
+                      color: "#E21D1D",
+                      lineHeight: "20px",
+                      m: 0,
+                    }}
+                  >
+                    {product.discount["discountRate"]}% off
+                  </Box>
                 </Box>
+              </Box>
+              <Box
+                component="p"
+                sx={{
+                  m: 0,
+                  mt: "5px",
+                  display: "flex",
+                  justifyContent: "flex-end",
+                }}
+              >
+                <FavoriteBorderOutlinedIcon />
               </Box>
             </Card>
           </Grid>
         ))}
       </Grid>
-      <Stack spacing={2}>
+      <Stack spacing={2} sx={{ mt: 4 }}>
         <Pagination
           count={Math.ceil(items.length / itemsPerPage)}
           page={page}
@@ -187,6 +204,7 @@ function PaginatedList({ category }) {
           color="primary"
           shape="rounded"
           variant="outlined"
+          sx={{ mx: "auto" }}
         />
       </Stack>
     </Box>

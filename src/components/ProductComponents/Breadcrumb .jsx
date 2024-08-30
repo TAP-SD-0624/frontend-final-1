@@ -18,7 +18,7 @@ const Breadcrumb = ({ product }) => {
       </Button>
       <Button
         component={RouterLink}
-        to="/category"
+        to={`/${product.categories && product.categories[0]?.name}`}
         sx={{ color: "#1B4B66", fontWeight: "600", fontSize: "16px" }}
       >
         {product.categories && product.categories.length > 0
