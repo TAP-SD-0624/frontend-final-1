@@ -65,12 +65,12 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 const Header = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
-  const { isAuthenticated, logout } = useAuth(); 
+  const { isAuthenticated, logout } = useAuth();
   const navigate = useNavigate();
 
   const handleBagClick = () => {
     if (!isAuthenticated) {
-      navigate('/signup');
+      navigate("/signup");
     } else {
       setDrawerOpen(!drawerOpen);
     }
@@ -89,9 +89,9 @@ const Header = () => {
   };
 
   const handleLogout = () => {
-    logout(); 
+    logout();
     handleMenuClose();
-    navigate("/signin"); 
+    navigate("/signin");
   };
 
   return (
@@ -128,27 +128,34 @@ const Header = () => {
             <img src={logo} alt="Logo" style={{ height: "22px" }} />
           </Link>
           <Box sx={{ display: { xs: "none", sm: "flex" }, marginLeft: 2 }}>
-            {["Handbags", "Watches", "Skincare", "Jewelry", "Apparels"].map(
-              (item) => (
-                <Button
-                  key={item}
-                  component={RouterLink}
-                  to={`/${item.toLowerCase()}`}
-                  sx={{
-                    marginLeft: 1,
-                    marginRight: 1,
-                    fontWeight: 500,
-                    fontSize: "14px",
-                    lineHeight: "18px",
-                    color: "black",
-                    textTransform: "none",
-                    fontFamily: "Inter",
-                  }}
-                >
-                  {item}
-                </Button>
-              )
-            )}
+            {[
+              "Shoes",
+              "Shirts",
+              "Watches",
+              "Handbags",
+              "Sunglasses",
+              "Sportswear",
+              "Bags",
+              "Accessories",
+            ].map((item) => (
+              <Button
+                key={item}
+                component={RouterLink}
+                to={`/${item.toLowerCase()}`}
+                sx={{
+                  marginLeft: 1,
+                  marginRight: 1,
+                  fontWeight: 500,
+                  fontSize: "14px",
+                  lineHeight: "18px",
+                  color: "black",
+                  textTransform: "none",
+                  fontFamily: "Inter",
+                }}
+              >
+                {item}
+              </Button>
+            ))}
           </Box>
         </Box>
 
@@ -200,9 +207,15 @@ const Header = () => {
           >
             {isAuthenticated ? (
               <>
-                <MenuItem component={RouterLink} to='/myCart' onClick={handleMenuClose}>My Cart</MenuItem>
+                <MenuItem
+                  component={RouterLink}
+                  to="/myCart"
+                  onClick={handleMenuClose}
+                >
+                  My Cart
+                </MenuItem>
                 <MenuItem onClick={handleLogout}>Log out</MenuItem>
-                </>
+              </>
             ) : (
               <>
                 <MenuItem
@@ -239,31 +252,36 @@ const Header = () => {
         onClose={handleMenuClose}
         sx={{ display: { xs: "block", sm: "none" } }}
       >
-        
-            {isAuthenticated ? (
-              <>
-                <MenuItem component={RouterLink} to='/myCart' onClick={handleMenuClose}>My Cart</MenuItem>
-                <MenuItem onClick={handleLogout}>Log out</MenuItem>
-                </>
-            ) : (
-              <>
-                <MenuItem
-                  component={RouterLink}
-                  to="/signin"
-                  onClick={handleMenuClose}
-                >
-                  Sign In
-                </MenuItem>
-                <MenuItem
-                  component={RouterLink}
-                  to="/signup"
-                  onClick={handleMenuClose}
-                >
-                  Sign Up
-                </MenuItem>
-              </>
-            )}
-        
+        {isAuthenticated ? (
+          <>
+            <MenuItem
+              component={RouterLink}
+              to="/myCart"
+              onClick={handleMenuClose}
+            >
+              My Cart
+            </MenuItem>
+            <MenuItem onClick={handleLogout}>Log out</MenuItem>
+          </>
+        ) : (
+          <>
+            <MenuItem
+              component={RouterLink}
+              to="/signin"
+              onClick={handleMenuClose}
+            >
+              Sign In
+            </MenuItem>
+            <MenuItem
+              component={RouterLink}
+              to="/signup"
+              onClick={handleMenuClose}
+            >
+              Sign Up
+            </MenuItem>
+          </>
+        )}
+
         <Divider />
         <MenuItem>
           <Search>
