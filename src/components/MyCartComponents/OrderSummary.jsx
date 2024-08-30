@@ -3,7 +3,7 @@ import { Box, Typography, Button, Divider } from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
 
 const OrderSummary = ({ subtotal, discount, total }) => (
-  <Box sx={{ m: 0, mt: 2, maxWidth: "415px" }}>
+  <Box sx={{ m: 0, mt: 2, maxWidth: { xs: "100%", sm: "415px" }, px: { xs: 2, sm: 0 } }}>
     <Typography
       variant="h5"
       sx={{ fontWeight: "600", fontSize: { xs: "18px", sm: "20px" } }}
@@ -60,6 +60,7 @@ const OrderSummary = ({ subtotal, discount, total }) => (
           backgroundColor: "#1B4B66",
           borderRadius: "8px",
           fontSize: { xs: "12px", sm: "14px" },
+          width: { xs: "100%", sm: "auto" },
           flex: 1,
         }}
       >
@@ -76,6 +77,7 @@ const OrderSummary = ({ subtotal, discount, total }) => (
           border: "2px solid #1B4B66",
           fontSize: { xs: "11px", sm: "13px" },
           borderRadius: "8px",
+          width: { xs: "100%", sm: "auto" },
           flex: 1,
         }}
       >
