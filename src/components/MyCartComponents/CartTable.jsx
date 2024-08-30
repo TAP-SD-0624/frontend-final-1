@@ -36,6 +36,7 @@ const CartTable = ({ items, onRemove }) => {
                 color: "#626262",
                 fontWeight: "bold",
                 fontSize: "16px",
+                display: { xs: "none", sm: "table-cell" }, // Hide Price column on mobile
               }}
             >
               Price
@@ -47,6 +48,7 @@ const CartTable = ({ items, onRemove }) => {
                 color: "#626262",
                 fontWeight: "bold",
                 fontSize: "16px",
+                display: { xs: "none", sm: "table-cell" }, // Hide Qty column on mobile
               }}
             >
               Qty
@@ -100,9 +102,22 @@ const CartTable = ({ items, onRemove }) => {
                     <Typography
                       variant="body2"
                       color="#626262"
-                      sx={{ fontSize: { xs: "10px", sm: "12px" } }}
+                      sx={{
+                        fontSize: { xs: "10px", sm: "12px" },
+                        display: { xs: "block", sm: "none" }, // Show Price on mobile below product name
+                      }}
                     >
-                      Qty- {item.quantity}
+                      Price: ${item.price}
+                    </Typography>
+                    <Typography
+                      variant="body2"
+                      color="#626262"
+                      sx={{
+                        fontSize: { xs: "10px", sm: "12px" },
+                        display: { xs: "block", sm: "none" }, // Show Qty below product name on mobile
+                      }}
+                    >
+                      Qty: {item.quantity}
                     </Typography>
                   </Box>
                 </Stack>
@@ -113,6 +128,7 @@ const CartTable = ({ items, onRemove }) => {
                   borderBottom: "none",
                   fontWeight: "400",
                   fontSize: { xs: "12px", sm: "14px" },
+                  display: { xs: "none", sm: "table-cell" }, // Hide Price on mobile
                 }}
               >
                 ${item.price}
@@ -123,6 +139,7 @@ const CartTable = ({ items, onRemove }) => {
                   borderBottom: "none",
                   fontWeight: "400",
                   fontSize: { xs: "12px", sm: "14px" },
+                  display: { xs: "none", sm: "table-cell" }, // Hide Qty on mobile
                 }}
               >
                 {item.quantity}
