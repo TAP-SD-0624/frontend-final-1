@@ -15,8 +15,8 @@ import Category from "./pages/Category.jsx";
 import Checkout from "./pages/Checkout/Checkout.jsx";
 import Welcome from "./pages/Welcome/Welcome.jsx";
 import ProtectedRoute from "./routes/ProtectedRoute.jsx";
-import BrandProducts from "./components/BrandProducts/BrandProducts.jsx"
-import UnauthenticatedRoute from './routes/UnauthenticatedRoute.jsx';
+import BrandProducts from "./components/BrandProducts/BrandProducts.jsx";
+import UnauthenticatedRoute from "./routes/UnauthenticatedRoute.jsx";
 import CartProvider from "./context/CartContext.jsx";
 
 const queryClient = new QueryClient();
@@ -26,7 +26,6 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools initialIsOpen />
       <Router>
-        
         <AuthProvider>
           <CartProvider>
             <Box className="App" style={{ width: "100%" }}>
@@ -45,12 +44,11 @@ function App() {
                     <Route path="/checkout" element={<Checkout />} />
                     <Route path="/myCart" element={<MyCart />} />
                     <Route path="/welcome" element={<Welcome />} />
-                    
                   </Route>
                 </Routes>
               </Layout>
             </Box>
-            </CartProvider>
+          </CartProvider>
         </AuthProvider>
       </Router>
     </QueryClientProvider>

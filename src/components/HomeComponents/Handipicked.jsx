@@ -23,12 +23,10 @@ const HandiPicked = ({ id }) => {
         },
       ]);
     } else {
-      categories
-        .get(product.categories && product.categories[0]?.name)
-        .push({
-          name: product.name,
-          image: product.images && product.images[0]?.publicURL,
-        });
+      categories.get(product.categories && product.categories[0]?.name).push({
+        name: product.name,
+        image: product.images && product.images[0]?.publicURL,
+      });
     }
   });
   console.log(categories);

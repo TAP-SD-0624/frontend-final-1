@@ -2,6 +2,7 @@ import React from "react";
 import { Typography, Box, Rating } from "@mui/material";
 
 const ProductDetails = ({ product }) => {
+  const ratingValue = product.userRatings?.[0]?.value || 0;
   return (
     <Box>
       <Typography
@@ -23,13 +24,17 @@ const ProductDetails = ({ product }) => {
         {product.description}
       </Typography>
       <Box sx={{ display: "flex", alignItems: "center", marginY: 2 }}>
-        <Rating name="simple-controlled" />
+        <Rating
+          name="simple-controlled"
+          value={+product.userRatings?.[0]?.value}
+          readOnly
+        />
         <Typography
           variant="body2"
           color="textSecondary"
           sx={{ marginLeft: 1, fontSize: { xs: "14px", md: "16px" } }}
         >
-          ({product.userRatings?.length}) Ratings
+          ({product.userRatings && product.userRatings.length}) Ratings
         </Typography>
       </Box>
       <Box

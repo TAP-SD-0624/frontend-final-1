@@ -1,10 +1,17 @@
-import React, { useState } from 'react';
-import { Tabs, Tab, Box, Typography, useMediaQuery, useTheme } from '@mui/material';
+import React, { useState } from "react";
+import {
+  Tabs,
+  Tab,
+  Box,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 
 const TabsSection = () => {
   const [value, setValue] = useState(0);
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -18,76 +25,85 @@ const TabsSection = () => {
 
   return (
     <Box>
-      <Tabs 
-        value={value} 
-        onChange={handleChange} 
+      <Tabs
+        value={value}
+        onChange={handleChange}
         variant={isMobile ? "fullWidth" : "standard"} // Full width for mobile, standard for larger screens
-        sx={{ 
-          backgroundColor: "#F1F1F1", 
+        sx={{
+          backgroundColor: "#F1F1F1",
           borderRadius: "12px",
           p: "8px",
           height: isMobile ? "42px" : "48px", // Smaller height for mobile
-          display: 'flex',
-          justifyContent: 'center',
+          display: "flex",
+          justifyContent: "center",
         }}
-        TabIndicatorProps={{ style: { display: 'none' ,borderRadius: '8px'} }}  
+        TabIndicatorProps={{ style: { display: "none", borderRadius: "8px" } }}
       >
-        <Tab 
-          label="Product Description" 
+        <Tab
+          label="Product Description"
           sx={{
-            backgroundColor: value === 0 ? '#1B4B66' : 'transparent',
-            color: value === 0 ? '#FFFFFF' : '#626262',
-            borderRadius: '8px',
+            backgroundColor: value === 0 ? "#1B4B66" : "transparent",
+            color: value === 0 ? "#FFFFFF" : "#626262",
+            borderRadius: "8px",
             fontWeight: 600,
             minWidth: 0, // Allow tabs to shrink
-            fontSize: isMobile ? '10px' : '12px',
-            px: isMobile ? '8px' : '10px',
-            py: isMobile ? '1px' : '2px',
-            
-            '&.Mui-selected': { // Target selected tab
-            backgroundColor: '#1B4B66',
-            color: '#FFFFFF',
-    },
-          }} 
+            fontSize: isMobile ? "10px" : "12px",
+            px: isMobile ? "8px" : "10px",
+            py: isMobile ? "1px" : "2px",
+
+            "&.Mui-selected": {
+              // Target selected tab
+              backgroundColor: "#1B4B66",
+              color: "#FFFFFF",
+            },
+          }}
         />
-        <Tab 
-          label="Related Products" 
+        <Tab
+          label="Related Products"
           sx={{
-            backgroundColor: value === 1 ? '#1B4B66' : 'transparent',
-            color: value === 1 ? '#FFFFFF' : '#626262',
-            borderRadius: '8px',
+            backgroundColor: value === 1 ? "#1B4B66" : "transparent",
+            color: value === 1 ? "#FFFFFF" : "#626262",
+            borderRadius: "8px",
             fontWeight: 600,
-            minWidth: 0, 
-            fontSize: isMobile ? '10px' : '12px',
-            px: isMobile ? '8px' : '10px',
-            py: isMobile ? '1px' : '2px',
-            '&.Mui-selected': { // Target selected tab
-            backgroundColor: '#1B4B66',
-            color: '#FFFFFF',
-    },
-          }} 
+            minWidth: 0,
+            fontSize: isMobile ? "10px" : "12px",
+            px: isMobile ? "8px" : "10px",
+            py: isMobile ? "1px" : "2px",
+            "&.Mui-selected": {
+              // Target selected tab
+              backgroundColor: "#1B4B66",
+              color: "#FFFFFF",
+            },
+          }}
         />
-        <Tab 
-          label="Ratings and Reviews" 
+        <Tab
+          label="Ratings and Reviews"
           sx={{
-            backgroundColor: value === 2 ? '#1B4B66' : 'transparent',
-            color: value === 2 ? '#FFFFFF' : '#626262',
-            borderRadius: '8px',
+            backgroundColor: value === 2 ? "#1B4B66" : "transparent",
+            color: value === 2 ? "#FFFFFF" : "#626262",
+            borderRadius: "8px",
             fontWeight: 600,
-            minWidth: 0, 
-            fontSize: isMobile ? '10px' : '12px',
-            px: isMobile ? '8px' : '10px',
-            py: isMobile ? '1px' : '2px',
-            '&.Mui-selected': { // Target selected tab
-              backgroundColor: '#1B4B66',
-              color: '#FFFFFF',
-    },
-          }} 
+            minWidth: 0,
+            fontSize: isMobile ? "10px" : "12px",
+            px: isMobile ? "8px" : "10px",
+            py: isMobile ? "1px" : "2px",
+            "&.Mui-selected": {
+              // Target selected tab
+              backgroundColor: "#1B4B66",
+              color: "#FFFFFF",
+            },
+          }}
         />
-    
       </Tabs>
       <Box sx={{ padding: 2 }}>
-        <Typography sx={{ fontSize: { xs: '14px', md: '16px' }, lineHeight: 1.6, fontWeight: 'bold', color: "#626262" }}>
+        <Typography
+          sx={{
+            fontSize: { xs: "14px", md: "16px" },
+            lineHeight: 1.6,
+            fontWeight: "bold",
+            color: "#626262",
+          }}
+        >
           {tabContent[value]}
         </Typography>
       </Box>

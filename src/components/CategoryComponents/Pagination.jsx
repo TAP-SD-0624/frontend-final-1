@@ -50,7 +50,7 @@ function PaginatedList({ category }) {
               sx={{ width: 1, textDecoration: "none" }}
               to={`/product/${product.id}`}
             >
-              <Box component="section" sx={{ width: 1 }}>
+              <Box component="section" sx={{ width: 1, height: "50%" }}>
                 <img
                   src={product.images && product.images[0]?.publicURL}
                   style={{
